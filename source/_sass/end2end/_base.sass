@@ -1,4 +1,4 @@
-@use "../variables" as *
+@use "../variables" as vars
 @use "../_mixins" as *
 
 
@@ -8,11 +8,11 @@ body
   height: 100%
 
 body
-  border-top: 5px solid $primary-color
-  background: $base-background-color
+  border-top: 5px solid vars.$primary-color
+  background: vars.$base-background-color
   padding-top: 75px
 
-  +media($tablet-small)
+  +media(vars.$tablet-small)
     padding-top: 0
 
 figure
@@ -21,18 +21,18 @@ figure
 
 .main-container
   // use color-darken helper to avoid colliding with Sass built-ins
-  background: color-darken($base-background-color, 3%)
-  padding: $base-spacing 0
+  background: color-darken(vars.$base-background-color, 3%)
+  padding: vars.$base-spacing 0
 
 .container
-  max-width: $phone-large
+  max-width: vars.$phone-large
   margin-left: auto
   margin-right: auto
-  padding-left: $base-spacing
-  padding-right: $base-spacing
+  padding-left: vars.$base-spacing
+  padding-right: vars.$base-spacing
 
-  +media($tablet-small)
-    max-width: $tablet-small
+  +media(vars.$tablet-small)
+    max-width: vars.$tablet-small
 
-  +media($desktop)
+  +media(vars.$desktop)
     max-width: 960px
