@@ -1,11 +1,15 @@
 
+@use "sass:math"
+@use "../variables" as *
+@use "../placeholders" as *
+
 .social
   padding: $base-spacing 0
-  @extend %clearfix
+  @extend %clearfix !optional
 
   li
     display: inline-block
-    padding: 0 ($base-spacing / 2.5)
+    padding: 0 math.div($base-spacing, 2.5)
 
   a
     color: $medium-gray-color

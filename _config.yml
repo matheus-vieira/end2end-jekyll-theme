@@ -1,13 +1,16 @@
 # Build settings
 permalink: /blog/:year/:title/
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 plugins: [jekyll-paginate-v2]
 
 pagination:
   enabled: true
   per_page: 3
   permalink: "/page/:num/"
+
+host: 0.0.0.0
+
 
 comments: true
 

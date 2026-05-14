@@ -1,8 +1,11 @@
+@use "../variables" as *
+@use "../mixins" as *
+
 .pagination
   text-align: center
   margin: $base-spacing 0 0
 
-  @extend %clearfix
+  @extend %clearfix !optional
 
   li
     padding: 0 .4em

@@ -1,5 +1,9 @@
+@use "../variables" as *
+@use "../_mixins" as *
+@use "../placeholders" as *
+
 .clearfix
-  @extend %clearfix
+  @extend %clearfix !optional
 
 .txt-primary
   color: $primary-color
