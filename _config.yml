@@ -10,6 +10,8 @@ pagination:
   permalink: "/page/:num/"
 
 host: 0.0.0.0
+livereload: true
+force_polling: true
 
 
 comments: true
