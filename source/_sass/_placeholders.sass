@@ -1,14 +1,14 @@
 @use "mixins" as *
-@use "variables" as *
+@use "variables" as vars
 
 %clearfix
   +clearfix
 
 %button
   appearance: none
-  background-color: $action-color
+  background-color: vars.$action-color
   border: 0
-  border-radius: $base-border-radius
+  border-radius: vars.$base-border-radius
   color: #fff
   cursor: pointer
   display: inline-block
@@ -17,16 +17,16 @@
   -webkit-font-smoothing: antialiased
   font-weight: 700
   line-height: 1
-  padding: $small-spacing $base-spacing
+  padding: vars.$small-spacing vars.$base-spacing
   text-decoration: none
-  transition: background-color $base-duration $base-timing
+  transition: background-color vars.$base-duration vars.$base-timing
   user-select: none
   vertical-align: middle
   white-space: nowrap
 
   &:hover,
   &:focus
-    background-color: shade($action-color, 20%)
+    background-color: vars.color-shade(vars.$action-color, 20%)
 
   &.disabled,
   &:disabled

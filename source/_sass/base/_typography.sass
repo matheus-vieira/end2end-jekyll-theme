@@ -1,16 +1,16 @@
-@use "../variables" as *
+@use "../variables" as vars
 @import url("//fonts.googleapis.com/css?family=Montserrat:300,400,700")
 
 html
-  font-size: $unit-font-size
+  font-size: vars.$unit-font-size
 
 body
-  color: $base-font-color
-  font-family: $base-font-family
+  color: vars.$base-font-color
+  font-family: vars.$base-font-family
   font-feature-settings: "kern", "liga", "pnum"
-  font-size: $base-font-size
-  font-weight: $font-weight-normal
-  line-height: $base-line-height
+  font-size: vars.$base-font-size
+  font-weight: vars.$font-weight-normal
+  line-height: vars.$base-line-height
   font-feature-settings: "calt" 1
   text-rendering: optimizeLegibility
 
@@ -20,9 +20,9 @@ h3,
 h4,
 h5,
 h6
-  font-family: $heading-font-family
-  line-height: $heading-line-height
-  font-weight: $font-weight-bold
+  font-family: vars.$heading-font-family
+  line-height: vars.$heading-line-height
+  font-weight: vars.$font-weight-bold
 
 h1,
 h2,
@@ -31,13 +31,13 @@ h4,
 h5,
 h6,
 p
-  margin: 0 0 $small-spacing
+  margin: 0 0 vars.$small-spacing
 
   &:last-child
     margin-bottom: 0
 
 p
-  font-weight: $font-weight-light
+  font-weight: vars.$font-weight-light
 
 em
   font-style: italic
@@ -47,20 +47,20 @@ small
   opacity: .75
 
 a
-  color: $action-color
+  color: vars.$action-color
   text-decoration: none
 
   &:active,
   &:focus,
   &:hover
-    color: shade($action-color, 25%)
+    color: vars.color-shade(vars.$action-color, 25%)
 
 hr
-  border-bottom: $base-border
+  border-bottom: vars.$base-border
   border-left: 0
   border-right: 0
   border-top: 0
-  margin: $base-spacing 0
+  margin: vars.$base-spacing 0
 
 img,
 picture
@@ -75,7 +75,7 @@ code
   font-size: 0.9em
   margin: 0
   padding: 0 5px
-  background-color: lighten($light-gray-color, 6%)
+  background-color: vars.color-lighten(vars.$light-gray-color, 6%)
 
 pre
   -webkit-overflow-scrolling: touch

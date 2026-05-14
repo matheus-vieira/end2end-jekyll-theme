@@ -1,5 +1,5 @@
 
-@use "../variables" as *
+@use "../variables" as vars
 @use "../_mixins" as *
 
 //
@@ -16,24 +16,24 @@
   &-thumbnail
     &, img
       background-color: #f1eff0
-      border-radius: $base-border-radius
+      border-radius: vars.$base-border-radius
 
-    +media($tablet-small)
+    +media(vars.$tablet-small)
       float: left
       max-width: 250px
-      margin-right: $small-spacing
-      margin-bottom: $small-spacing
-      padding: $small-spacing
-      border: $base-border
+      margin-right: vars.$small-spacing
+      margin-bottom: vars.$small-spacing
+      padding: vars.$small-spacing
+      border: vars.$base-border
 
   .read-more
-    color: lighten($action-color, 10%)
+    color: vars.color-lighten(vars.$action-color, 10%)
 
   &-header
-    margin-bottom: $base-spacing
+    margin-bottom: vars.$base-spacing
 
   &-title
-    font-size: rem(26)
+    font-size: vars.rem(26)
     margin-bottom: 0
     line-height: 1.5em
 
@@ -42,26 +42,26 @@
       @extend .card !optional
 
       a
-        color: $base-font-color
+        color: vars.$base-font-color
 
         &:hover,
         &:active,
         &:focus
-          color: $primary-color
+          color: vars.$primary-color
 
 .post-list
   .post
     &-content,
     &-thumbnail
-      +media($tablet-small)
+      +media(vars.$tablet-small)
         display: table-cell
         vertical-align: middle
 
     &-thumbnail
-      margin-bottom: $base-spacing
+      margin-bottom: vars.$base-spacing
       padding: 0
 
-      +media($tablet-small)
+      +media(vars.$tablet-small)
         width: 250px
         margin: 0
 
@@ -75,5 +75,5 @@
         background-size: cover
 
     &-content
-      +media($tablet-small)
-        padding: 0 0 0 $base-spacing
+      +media(vars.$tablet-small)
+        padding: 0 0 0 vars.$base-spacing
