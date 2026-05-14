@@ -30,7 +30,10 @@
   word-break: break-word
   word-wrap: break-word
 
-=media($query: $feature $value)
+=media($query: null)
+  @if $query == null or list.length($query) == 0
+    @error "media(): missing $query. Pass a list like (768px) or (min-width 768px max-width 1024px)."
+
   @if list.length($query) == 1
     @media screen and (min-width: list.nth($query, 1))
       @content
