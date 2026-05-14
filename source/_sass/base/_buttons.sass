@@ -1,7 +1,7 @@
-@use "../variables" as *
+@use "../variables" as vars
 @use "../placeholders" as *
 
-#{$all-buttons}
+#{vars.$all-buttons}
   @extend %button
 
 .button
@@ -9,8 +9,8 @@
 
   &-ghost
     background-color: transparent
-    border: 2px solid $primary-color
-    color: $primary-color
+    border: 2px solid vars.$primary-color
+    color: vars.$primary-color
     margin-bottom: 2px
 
     &:hover,

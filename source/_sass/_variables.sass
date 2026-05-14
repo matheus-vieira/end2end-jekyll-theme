@@ -6,16 +6,16 @@ $helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif
 @use "sass:list"
 @use "sass:math"
 
-@function tint($color, $percent)
+@function color-tint($color, $percent)
   @return color.mix(#fff, $color, $percent)
 
-@function shade($color, $percent)
+@function color-shade($color, $percent)
   @return color.mix(#000, $color, $percent)
 
-@function lighten($color, $amount)
+@function color-lighten($color, $amount)
   @return color.mix(#fff, $color, $amount)
 
-@function darken($color, $amount)
+@function color-darken($color, $amount)
   @return color.mix(#000, $color, $amount)
 
 @function rem($pixels)
@@ -59,7 +59,7 @@ $medium-gray-color: #9a9a9a
 $light-gray-color: #dedede
 
 // Font Colors
-$base-font-color: lighten($dark-gray-color, 25%)
+$base-font-color: color-lighten($dark-gray-color, 25%)
 $action-color: $primary-color
 
 // Border
@@ -68,7 +68,7 @@ $base-border: 1px solid $base-border-color
 
 // Background Colors
 $base-background-color: $white-color
-$secondary-background-color: tint($base-border-color, 75%)
+$secondary-background-color: color-tint($base-border-color, 75%)
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba(#000, 0.06)

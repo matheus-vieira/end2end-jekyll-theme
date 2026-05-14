@@ -1,11 +1,11 @@
-@use "../variables" as *
+@use "../variables" as vars
 @use "../_mixins" as *
 
 .site-header
-  background-color: $white-color
+  background-color: vars.$white-color
   padding: 0
   margin: 0
-  border-bottom: 1px solid rgba($light-gray-color, .5)
+  border-bottom: 1px solid rgba(vars.$light-gray-color, .5)
   +position(fixed, 0 0 null 0)
   min-height: 80px
   width: 100%
@@ -13,9 +13,9 @@
 
   @extend %clearfix !optional
 
-  +media($tablet-small)
+  +media(vars.$tablet-small)
     +position(relative, auto)
-    padding: $base-spacing 0
+    padding: vars.$base-spacing 0
     min-height: 35px
 
   .logo, a
@@ -25,25 +25,25 @@
     float: right
 
   a
-    color: $medium-gray-color
+    color: vars.$medium-gray-color
 
     &:hover,
     &:focus,
     &:active
-      color: $dark-gray-color
+      color: vars.$dark-gray-color
 
 .logo
   margin: 0
   padding: 0
   float: left
-  font-weight: $font-weight-normal
-  font-size: rem(20)
-  +position(fixed, $base-spacing null null $base-spacing)
+  font-weight: vars.$font-weight-normal
+  font-size: vars.rem(20)
+  +position(fixed, vars.$base-spacing null null vars.$base-spacing)
   z-index: 100
 
-  +media($tablet-small)
+  +media(vars.$tablet-small)
     padding: 5px 0
     +position(relative, auto)
 
   span
-    color: $primary-color
+    color: vars.$primary-color

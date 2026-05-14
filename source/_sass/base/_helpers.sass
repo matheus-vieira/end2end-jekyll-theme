@@ -1,4 +1,4 @@
-@use "../variables" as *
+@use "../variables" as vars
 @use "../_mixins" as *
 @use "../placeholders" as *
 
@@ -6,25 +6,25 @@
   @extend %clearfix !optional
 
 .txt-primary
-  color: $primary-color
+  color: vars.$primary-color
 
 .txt-white
-  color: $white-color
+  color: vars.$white-color
 
 .txt-black
-  color: $black-color
+  color: vars.$black-color
 
 .txt-blue
-  color: $blue-color
+  color: vars.$blue-color
 
 .txt-dark-gray
-  color: $dark-gray-color
+  color: vars.$dark-gray-color
 
 .txt-medium-gray
-  color: $medium-gray-color
+  color: vars.$medium-gray-color
 
 .txt-light-gray
-  color: $light-gray-color
+  color: vars.$light-gray-color
 
 .txt-left
   text-align: left

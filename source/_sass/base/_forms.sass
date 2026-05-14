@@ -1,22 +1,22 @@
 @use "sass:math"
-@use "../variables" as *
+@use "../variables" as vars
 
 fieldset
-  background-color: $secondary-background-color
-  border: $base-border
-  margin: 0 0 $small-spacing
-  padding: $base-spacing
+  background-color: vars.$secondary-background-color
+  border: vars.$base-border
+  margin: 0 0 vars.$small-spacing
+  padding: vars.$base-spacing
 
 input,
 label,
 select
   display: block
-  font-family: $base-font-family
-  font-size: $base-font-size
+  font-family: vars.$base-font-family
+  font-size: vars.$base-font-size
 
 label
   font-weight: 600
-  margin-bottom: math.div($small-spacing, 2)
+  margin-bottom: math.div(vars.$small-spacing, 2)
 
   &.required::after
     content: "*"
@@ -24,34 +24,34 @@ label
   abbr
     display: none
 
-#{$all-text-inputs},
+#{vars.$all-text-inputs},
 select[multiple=multiple]
-  background-color: $base-background-color
-  border: $base-border
-  border-radius: $base-border-radius
-  box-shadow: $form-box-shadow
+  background-color: vars.$base-background-color
+  border: vars.$base-border
+  border-radius: vars.$base-border-radius
+  box-shadow: vars.$form-box-shadow
   box-sizing: border-box
-  font-family: $base-font-family
-  font-size: $base-font-size
-  margin-bottom: $small-spacing
-  padding: math.div($base-spacing, 3)
-  transition: border-color $base-duration $base-timing
+  font-family: vars.$base-font-family
+  font-size: vars.$base-font-size
+  margin-bottom: vars.$small-spacing
+  padding: math.div(vars.$base-spacing, 3)
+  transition: border-color vars.$base-duration vars.$base-timing
   width: 100%
 
   &:hover
-    border-color: shade($base-border-color, 20%)
+    border-color: vars.color-shade(vars.$base-border-color, 20%)
 
   &:focus
-    border-color: $action-color
-    box-shadow: $form-box-shadow-focus
+    border-color: vars.$action-color
+    box-shadow: vars.$form-box-shadow-focus
     outline: none
 
   &:disabled
-    background-color: shade($base-background-color, 5%)
+    background-color: vars.color-shade(vars.$base-background-color, 5%)
     cursor: not-allowed
 
     &:hover
-      border: $base-border
+      border: vars.$base-border
 
 textarea
   resize: vertical
@@ -62,16 +62,16 @@ input[type="search"]
 input[type="checkbox"],
 input[type="radio"]
   display: inline
-  margin-right: math.div($small-spacing, 2)
+  margin-right: math.div(vars.$small-spacing, 2)
 
   + label
     display: inline-block
 
 input[type="file"]
-  margin-bottom: $small-spacing
+  margin-bottom: vars.$small-spacing
   width: 100%
 
 select
-  margin-bottom: $base-spacing
+  margin-bottom: vars.$base-spacing
   max-width: 100%
   width: auto
