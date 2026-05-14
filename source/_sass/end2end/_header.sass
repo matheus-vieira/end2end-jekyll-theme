@@ -1,3 +1,6 @@
+@use "../variables" as *
+@use "../_mixins" as *
+
 .site-header
   background-color: $white-color
   padding: 0
@@ -8,7 +11,7 @@
   width: 100%
   z-index: 1000
 
-  @extend %clearfix
+  @extend %clearfix !optional
 
   +media($tablet-small)
     +position(relative, auto)

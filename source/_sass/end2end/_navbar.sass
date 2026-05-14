@@ -1,3 +1,7 @@
+@use "../_mixins" as *
+@use "../variables" as *
+
+
 .navbar
   display: none
   +position(fixed, 0)
@@ -78,7 +82,7 @@
   margin: 0
   +position(fixed, $base-spacing $base-spacing null null)
   z-index: 100
-  @extend %button
+  @extend %button !optional
 
   .icon-menu
     display: block
