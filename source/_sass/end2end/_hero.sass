@@ -1,4 +1,4 @@
-@use "../variables" as *
+@use "../variables" as vars
 
 .hero
   display: table
@@ -13,7 +13,7 @@
 
   .dot
     padding: 5px
-    border: 1px solid $light-gray-color
+    border: 1px solid vars.$light-gray-color
 
   h1,
   h3
@@ -22,18 +22,18 @@
 
   h1
     margin-top: .7em
-    font-size: rem(40)
+    font-size: vars.rem(40)
     margin: 0 auto
 
   h3
-    font-size: rem(20)
+    font-size: vars.rem(20)
     margin: .8em auto 1.2em
 
   h3, em
-    font-weight: $font-weight-light
+    font-weight: vars.$font-weight-light
 
   em
-    color: $primary-color
+    color: vars.$primary-color
 
   strong
-    font-weight: $font-weight-bold
+    font-weight: vars.$font-weight-bold

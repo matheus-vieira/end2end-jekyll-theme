@@ -1,5 +1,5 @@
 @use "../_mixins" as *
-@use "../variables" as *
+@use "../variables" as vars
 
 .github-corner
   display: none
@@ -7,7 +7,7 @@
   &:hover .octo-arm
     animation: octocat-wave 560ms ease-in-out
 
-  +media($tablet-small)
+  +media(vars.$tablet-small)
     display: block
 
 @keyframes octocat-wave
