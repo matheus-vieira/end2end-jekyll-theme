@@ -22,4 +22,6 @@ jobs:
         run: gem install bundler -v 4.0.11
 
       - name: Build site
+        env:
+            JEKYLL_ENV: production
         run: bundle exec jekyll build --config _config.yml
