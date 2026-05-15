@@ -17,6 +17,10 @@
 
 ### Start in 4 steps
 
+> Ruby >= 3.2 required.
+>\
+> Bundler 4.0.11 recommended
+
 1. Download or clone repo `git clone git@github.com:nandomoreirame/end2end.git`
 2. Enter the folder: `cd end2end/`
 3. Install Ruby gems: `bundle install`
