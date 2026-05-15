@@ -25,10 +25,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
+          bundler: '4.0.11'
           bundler-cache: true # Isso vai acelerar os próximos builds
-
-      - name: Install Bundler
-        run: gem install bundler -v 4.0.11
 
       - name: Build with Jekyll
         env:
