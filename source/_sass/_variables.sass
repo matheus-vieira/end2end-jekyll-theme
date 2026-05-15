@@ -1,10 +1,7 @@
-// Font stack
-$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif
-
-// Bourbon replacement functions using modern Sass syntax
 @use "sass:color"
 @use "sass:list"
 @use "sass:math"
+@use "sass:meta"
 
 @function color-tint($color, $percent)
   @return color.mix(#fff, $color, $percent)
@@ -13,13 +10,28 @@ $helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif
   @return color.mix(#000, $color, $percent)
 
 @function color-lighten($color, $amount)
-  @return color.mix(#fff, $color, $amount)
+  @return color.adjust($color, $lightness: $amount, $space: hsl)
 
 @function color-darken($color, $amount)
-  @return color.mix(#000, $color, $amount)
+  @return color.adjust($color, $lightness: -$amount, $space: hsl)
 
 @function rem($pixels)
+  @if meta.type-of($pixels) != number
+    @error "rem(): expected a number, got #{meta.type-of($pixels)}."
+
+  @if math.is-unitless($pixels)
+    $pixels: $pixels * 1px
+
+  @if math.unit($pixels) == "rem"
+    @return $pixels
+
+  @if math.unit($pixels) != "px"
+    @error "rem(): expected unitless, px, or rem. Got #{math.unit($pixels)}."
+
   @return math.div($pixels, 16px) * 1rem
+
+// Font stack
+$helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif
 
 // HTML Element Selectors
 $all-buttons: "button, input[type='button'], input[type='reset'], input[type='submit']"
