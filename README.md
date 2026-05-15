@@ -15,6 +15,14 @@
 
 ---
 
+## Configuration
+
+Edit `_config.yml` before deploying:
+
+- `url` — your site's base URL (e.g. `https://yourusername.github.io`)
+- `baseurl` — subpath if not at root (e.g. `/end2end` or `""` for root)
+- `author` — your personal info
+
 ### Start in 4 steps
 
 > Ruby >= 3.2 required.
