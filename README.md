@@ -1,4 +1,4 @@
-# end2end Clean Jekyll theme [![Build Status](https://travis-ci.org/nandomoreirame/end2end.svg?branch=master)](https://travis-ci.org/nandomoreirame/end2end)
+# end2end Clean Jekyll theme [![Deploy Pages](https://github.com/nandomoreirame/end2end/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/nandomoreirame/end2end/actions/workflows/pages.yml)
 
 
 
