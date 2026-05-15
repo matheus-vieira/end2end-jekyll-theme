@@ -1,8 +1,8 @@
-name: Pages
+name: Deploy GitHub Pages
 
 on:
   push:
-    branches: ["master"]
+    branches: ["master", "main"]
   workflow_dispatch:
 
 permissions:
@@ -24,32 +24,27 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
-          bundler-cache: false
+          ruby-version: '3.2'
+          bundler-cache: true # Isso vai acelerar os próximos builds
 
       - name: Install Bundler
-        run: |
-          gem install bundler -v 4.0.11
-          bundle _4.0.11_ --version
+        run: gem install bundler -v 4.0.11
 
-      - name: Install gems
-        run: bundle _4.0.11_ install --jobs 4 --retry 3
-
-      - name: Build site
+      - name: Build with Jekyll
         env:
           JEKYLL_ENV: production
-        run: bundle _4.0.11_ exec jekyll build --config _config.yml
+        run: bundle exec jekyll build --config _config.yml
 
-      - name: Upload Pages artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
 
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
