@@ -1,6 +1,6 @@
 @use "../_mixins" as *
 @use "../variables" as vars
-
+@use "../placeholders"
 
 .navbar
   display: none
@@ -82,7 +82,7 @@
   margin: 0
   +position(fixed, vars.$base-spacing vars.$base-spacing null null)
   z-index: 100
-  @extend %button !optional
+  @extend %button
 
   .icon-menu
     display: block

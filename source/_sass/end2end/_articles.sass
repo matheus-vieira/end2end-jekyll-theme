@@ -1,6 +1,6 @@
-
 @use "../variables" as vars
 @use "../_mixins" as *
+@use "./card"
 
 //
 // Articles
@@ -39,7 +39,7 @@
 
   &-list
     .post
-      @extend .card !optional
+      @extend .card
 
       a
         color: vars.$base-font-color
