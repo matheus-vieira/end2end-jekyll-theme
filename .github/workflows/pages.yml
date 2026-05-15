@@ -27,7 +27,7 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: false
 
-      - name: Install Bundler (lockfile)
+      - name: Install Bundler
         run: |
           gem install bundler -v 4.0.11
           bundle _4.0.11_ --version
@@ -36,6 +36,8 @@ jobs:
         run: bundle _4.0.11_ install --jobs 4 --retry 3
 
       - name: Build site
+        env:
+          JEKYLL_ENV: production
         run: bundle _4.0.11_ exec jekyll build --config _config.yml
 
       - name: Upload Pages artifact
