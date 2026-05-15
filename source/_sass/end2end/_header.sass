@@ -1,5 +1,6 @@
 @use "../variables" as vars
 @use "../_mixins" as *
+@use "../placeholders"
 
 .site-header
   background-color: vars.$white-color
@@ -11,7 +12,7 @@
   width: 100%
   z-index: 1000
 
-  @extend %clearfix !optional
+  @extend %clearfix
 
   +media(vars.$tablet-small)
     +position(relative, auto)

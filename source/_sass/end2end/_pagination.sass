@@ -1,11 +1,12 @@
 @use "../variables" as vars
 @use "../mixins" as mixins
+@use "../placeholders"
 
 .pagination
   text-align: center
   margin: vars.$base-spacing 0 0
 
-  @extend %clearfix !optional
+  @extend %clearfix
 
   li
     padding: 0 .4em
