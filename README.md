@@ -28,10 +28,9 @@
 
 Access, [localhost:4000/end2end](http://localhost:4000/end2end)
 
-### Deploy in Github pages in 2 steps
+### Deploy in Github pages
 
-1. Change the variables `GITHUB_REPONAME` and `GITHUB_REPO_BRANCH` in `Rakefile`
-2. Run `rake` or `rake publish` for build and publish on Github
+Made by actions, no chages needed, just push to master branch and wait for the action to deploy the page.
 
 ---
 
