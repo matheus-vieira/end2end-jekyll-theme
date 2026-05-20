@@ -2,11 +2,15 @@ name: CI
 
 on:
   pull_request:
-  workflow_dispatch:
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.2', '3.3']
 
     steps:
       - name: Checkout
@@ -15,8 +19,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
-          bundler: '4.0.11'
+          ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
       - name: Build site
