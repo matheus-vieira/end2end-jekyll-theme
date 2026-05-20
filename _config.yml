@@ -29,11 +29,11 @@ twitter:
 social:
   name: Fernando Moreira
   links:
-    - http://nandomoreira.me
+    - https://nandomoreira.me
     - https://github.com/nandomoreirame
 
 google_analytics: UA-52446115-1
-repo: http://github.com/nandomoreirame/end2end
+repo: https://github.com/nandomoreirame/end2end
 disqus_shortname: "nandothemes"
 disqus_site_shortname: "nandothemes"
 
