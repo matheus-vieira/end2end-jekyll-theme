@@ -2,6 +2,7 @@
 # encoding: UTF-8
 
 require "fileutils"
+require "yaml"
 require "time"
 
 SOURCE = "source".freeze
@@ -95,7 +96,12 @@ end
 desc "Build the site and validate generated HTML/internal links"
 task :check_links do
   sh "bundle exec jekyll build --config _config.yml"
-  sh "bundle exec htmlproofer ./_site --disable-external --no-enforce-https --swap-urls '^/end2end/:/'"
+
+  swap_urls = htmlproofer_swap_urls
+  command = "bundle exec htmlproofer ./_site --disable-external --no-enforce-https"
+  command += " --swap-urls '#{swap_urls}'" unless swap_urls.empty?
+
+  sh command
 end
 
 def confirm_overwrite?(message)
@@ -123,4 +129,16 @@ def build_list(value)
   return "" if value.nil? || value.strip.empty?
 
   value.split(",").map { |item| "  - #{item.strip}" }.join("\n")
+end
+
+def htmlproofer_swap_urls
+  baseurl = ENV["BASEURL"] || site_baseurl
+  return "" if baseurl.nil? || baseurl.strip.empty?
+
+  "^#{Regexp.escape(baseurl.strip)}/:/"
+end
+
+def site_baseurl
+  config = YAML.load_file(File.join(Dir.pwd, "_config.yml"))
+  config["baseurl"].to_s
 end
