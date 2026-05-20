@@ -1,6 +1,6 @@
 @use "../variables" as vars
 
-.card
+=card
   background-color: vars.$white-color
   box-shadow: -1px 2px 6px 0 rgba(vars.$black-color, .1)
   padding: vars.$base-spacing
@@ -12,3 +12,6 @@
 
   &:hover
     box-shadow: -1px 2px 12px 0 rgba(vars.$black-color, .2)
+
+.card
+  +card
