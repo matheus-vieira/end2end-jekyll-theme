@@ -62,15 +62,17 @@
       padding: 0
 
       +media(vars.$tablet-small)
-        width: 250px
+        float: none
+        width: clamp(180px, 28vw, 320px)
+        max-width: clamp(180px, 28vw, 320px)
         margin: 0
 
       > a
-        display: inline-block
+        display: block
+        width: 100%
 
       &.no-image > a
-        width: 100%
-        min-height: 200px
+        aspect-ratio: 5 / 4
         background: url(../images/placeholder.png) no-repeat 50%
         background-size: cover
 
