@@ -26,7 +26,7 @@ Edit `_config.yml` before deploying:
 ## Current stack
 
 - Ruby 3.2+
-- Bundler 4.0+
+- Bundler 2.5+ (Gemfile.lock bundled with 4.0)
 - Jekyll 4.3
 - GitHub Pages via GitHub Actions
 - Sass modules using `@use`
