@@ -12,6 +12,14 @@ CONFIG = {
   "post_ext" => "md"
 }.freeze
 
+desc "List available tasks"
+task :help do
+  puts "Available tasks:"
+  sh "rake -T"
+end
+
+task default: :help
+
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless File.directory?(CONFIG["posts"])
@@ -47,9 +55,9 @@ task :post do
     post.puts %(description: "#{title}")
     post.puts 'keywords: ""'
     post.puts "categories:"
-    post.puts tags_or_empty(categories)
+    post.puts categories
     post.puts "tags:"
-    post.puts tags_or_empty(tags)
+    post.puts tags
     post.puts "---"
   end
 end
@@ -116,8 +124,4 @@ def build_list(value)
   return "" if value.nil? || value.strip.empty?
 
   value.split(",").map { |item| "  - #{item.strip}" }.join("\n")
-end
-
-def tags_or_empty(value)
-  value.nil? || value.empty? ? "" : value
 end
