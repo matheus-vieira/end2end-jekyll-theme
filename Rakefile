@@ -4,8 +4,6 @@
 require "fileutils"
 require "time"
 
-include FileUtils
-
 SOURCE = "source".freeze
 
 CONFIG = {
@@ -79,7 +77,7 @@ task :page do
 
   slug = mount_slug(title)
 
-  mkdir_p(File.dirname(filename))
+  FileUtils.mkdir_p(File.dirname(filename))
   puts "Creating new page: #{filename}"
 
   File.open(filename, "w") do |page|
