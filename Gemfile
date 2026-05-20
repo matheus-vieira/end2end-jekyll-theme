@@ -11,6 +11,8 @@ source "https://rubygems.org"
 gem "jekyll", "~>4.3.0"
 gem "rake", "~>13.0"
 
+# Required to load Windows-only dependencies
+# and avoid unnecessary noise on non-Windows environments
 if Gem.win_platform?
   platforms :windows do
     gem "csv"
