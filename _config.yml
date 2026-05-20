@@ -32,7 +32,8 @@ social:
     - https://nandomoreira.me
     - https://github.com/nandomoreirame
 
-google_analytics: UA-52446115-1
+google_analytics: UA-52446115-1 # Universal Analytics (descontinuado jul/2024)
+# google_analytics: G-XXXXXXXXXX  # Change to GA4 Measurement ID when available
 repo: https://github.com/nandomoreirame/end2end
 disqus_shortname: "nandothemes"
 disqus_site_shortname: "nandothemes"
