@@ -10,7 +10,7 @@
 =position($position: relative, $coords: null)
   position: $position
   @if $coords != null
-    @if meta.type-of($coords) == list
+    @if meta.type-of($coords) == "list"
       @if list.length($coords) > 0 and list.nth($coords, 1) != null
         top: list.nth($coords, 1)
       @if list.length($coords) > 1 and list.nth($coords, 2) != null
