@@ -23,26 +23,56 @@ Edit `_config.yml` before deploying:
 - `baseurl` — subpath if not at root (e.g. `/end2end` or `""` for root)
 - `author` — your personal info
 
-### Start in 4 steps
+## Current stack
 
-> Ruby >= 3.2 required.
->
-> Bundler 4.0.11 recommended
+- Ruby 3.2+
+- Jekyll 4.3
+- GitHub Pages via GitHub Actions
+- Sass modules using `@use`
 
-1. Download or clone repo `git clone git@github.com:nandomoreirame/end2end.git`
-2. Enter the folder: `cd end2end/`
-3. Install Ruby gems: `bundle install`
-4. Start Jekyll server: `bundle exec jekyll serve --config _config.yml,_config.dev.yml`
+## Local development
 
-Access, [localhost:4000/end2end](http://localhost:4000/end2end)
+Install dependencies:
 
-### Deploy on GitHub Pages
+```bash
+bundle install
+```
 
-Deployment is handled by GitHub Actions, so no manual publish step is required.
+Start local server:
 
-1. In **Settings → Pages**, set **Source** to **GitHub Actions**.
-2. Push your changes to `master` (or the repository default branch).
-3. Wait for the **Deploy GitHub Pages** workflow to finish publishing the site.
+```bash
+bundle exec jekyll serve --config _config.yml,_config.dev.yml
+```
+
+## Pull request validation
+
+Every pull request runs:
+
+- Jekyll production build
+- Ruby 3.2 validation
+- Ruby 3.3 validation
+
+## Deploy
+
+Deploy is fully handled by GitHub Actions.
+
+Requirements:
+
+- Repository Settings
+- Pages
+- Source = GitHub Actions
+
+Pushes to `master` or `main` trigger deployment automatically.
+
+## Migration notes
+
+This project no longer uses:
+
+- Travis CI
+- `gh-pages` branch deployment
+- Bourbon Sass framework
+
+The site is now built and deployed using GitHub Actions artifacts.
 
 ---
 
