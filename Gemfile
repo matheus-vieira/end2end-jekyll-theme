@@ -11,6 +11,13 @@ source "https://rubygems.org"
 gem "jekyll", "~>4.3.0"
 gem "rake", "~>13.0"
 
+if Gem.win_platform?
+  platforms :windows do
+    gem "csv"
+    gem "base64"
+  end
+end
+
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
 # gem "github-pages", group: :jekyll_plugins
