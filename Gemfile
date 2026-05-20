@@ -25,6 +25,7 @@ end
 # If you have any plugins, put them here!
 group :development do
   gem "jekyll-compose", "~> 0.12"
+  gem "html-proofer", "~> 5.1"
 end
 
 group :jekyll_plugins do

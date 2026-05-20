@@ -85,6 +85,12 @@ task :page do
   end
 end
 
+desc "Build the site and validate generated HTML/internal links"
+task :check_links do
+  sh "bundle exec jekyll build --config _config.yml"
+  sh "bundle exec htmlproofer ./_site --disable-external --no-enforce-https --swap-urls '^/end2end/:/'"
+end
+
 def confirm_overwrite?(message)
   print "#{message} "
   answer = $stdin.gets&.strip&.downcase

@@ -44,6 +44,12 @@ Start local server:
 bundle exec jekyll serve --config _config.yml,_config.dev.yml
 ```
 
+Validate generated HTML and internal links:
+
+```bash
+rake check_links
+```
+
 ## Pull request validation
 
 Every pull request runs:

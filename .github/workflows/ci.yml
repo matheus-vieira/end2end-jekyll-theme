@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         ruby-version: ['3.2', '3.3']
 
@@ -26,3 +25,10 @@ jobs:
         env:
           JEKYLL_ENV: production
         run: bundle exec jekyll build --config _config.yml
+
+      - name: Validate generated HTML
+        run: |
+          bundle exec htmlproofer ./_site \
+            --disable-external \
+            --no-enforce-https \
+            --swap-urls "^/end2end/:/"
