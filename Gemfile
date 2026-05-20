@@ -18,8 +18,11 @@ gem "webrick"
 # gem "github-pages", group: :jekyll_plugins
 
 # If you have any plugins, put them here!
+group :development do
+  gem "jekyll-compose", "~> 0.12"
+end
+
 group :jekyll_plugins do
   gem "jekyll-feed", "~>0.17"
   gem "jekyll-paginate-v2", "~>3.0"
-  gem "jekyll-compose", "~>0.12"
 end
