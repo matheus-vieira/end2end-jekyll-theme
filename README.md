@@ -26,6 +26,7 @@ Edit `_config.yml` before deploying:
 ## Current stack
 
 - Ruby 3.2+
+- Bundler 4.0+
 - Jekyll 4.3
 - GitHub Pages via GitHub Actions
 - Sass modules using `@use`
@@ -84,8 +85,10 @@ The site is now built and deployed using GitHub Actions artifacts.
 
 ### Using Rake tasks
 
+* Show available tasks (default): `rake` or `rake help`
 * Create a new page: `rake page name="contact.md"`
 * Create a new post: `rake post title="TITLE OF THE POST"`
+* Validate generated HTML and internal links: `rake check_links`
 
 ---
 
