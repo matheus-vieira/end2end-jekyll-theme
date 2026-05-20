@@ -51,11 +51,11 @@
 
 .post-list
   .post
-    &-content,
-    &-thumbnail
-      +media(vars.$tablet-small)
-        display: table-cell
-        vertical-align: middle
+    +media(vars.$tablet-small)
+      display: grid
+      grid-template-columns: clamp(180px, 28vw, 320px) 1fr
+      gap: vars.$base-spacing
+      align-items: center
 
     &-thumbnail
       margin-bottom: vars.$base-spacing
@@ -63,8 +63,8 @@
 
       +media(vars.$tablet-small)
         float: none
-        width: clamp(180px, 28vw, 320px)
-        max-width: clamp(180px, 28vw, 320px)
+        width: 100%
+        max-width: none
         margin: 0
 
       > a
@@ -78,4 +78,4 @@
 
     &-content
       +media(vars.$tablet-small)
-        padding: 0 0 0 vars.$base-spacing
+        padding: 0
