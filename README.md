@@ -36,9 +36,13 @@ Edit `_config.yml` before deploying:
 
 Access, [localhost:4000/end2end](http://localhost:4000/end2end)
 
-### Deploy in Github pages
+### Deploy on GitHub Pages
 
-Made by actions, no chages needed, just push to master branch and wait for the action to deploy the page.
+Deployment is handled by GitHub Actions, so no manual publish step is required.
+
+1. In **Settings → Pages**, set **Source** to **GitHub Actions**.
+2. Push your changes to `master` (or the repository default branch).
+3. Wait for the **Deploy GitHub Pages** workflow to finish publishing the site.
 
 ---
 
