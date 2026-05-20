@@ -109,7 +109,7 @@ end
 def build_list(value)
   return "" if value.nil? || value.strip.empty?
 
-  value.split(",").map { |item| "- #{item.strip}" }.join("\n")
+  value.split(",").map { |item| "  - #{item.strip}" }.join("\n")
 end
 
 def tags_or_empty(value)
