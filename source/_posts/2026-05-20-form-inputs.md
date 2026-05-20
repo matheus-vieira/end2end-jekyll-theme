@@ -4,11 +4,13 @@ title: "A test post with all form elements"
 date: 2026-05-20 11:28 -0300
 comments: true
 image: https://jekyllrb.com/img/octojekyll.png
-categories: jekyll update
+categories: [jekyll, update]
 ---
 This is just a test post to verify that all form elements are rendered correctly in the generated site.
 
 This form is not meant to be functional, but it includes examples of all standard HTML form elements for testing purposes.
+
+> Demo note: this form is intentionally non-functional and is here to exercise the theme's form styles and browser defaults.
 
 Fill out the form below to see how each element is displayed on the site.
 
@@ -20,7 +22,7 @@ Just now.
 
 ## Form Example
 
-<form method="POST" action="/submit">
+<form method="POST" action="#">
   
   <div>
     <label for="fullname">Full Name (Text):</label>
