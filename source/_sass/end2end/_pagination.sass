@@ -1,6 +1,25 @@
 @use "../variables" as vars
-@use "../mixins" as mixins
 @use "../placeholders"
+
+.pagination
+  text-align: center
+  margin: vars.$base-spacing 0 0
+
+  @extend %clearfix
+
+  li
+    padding: 0 .4em
+
+  li, a, span
+    display: inline-block
+
+  a, span
+    line-height: 1.2em
+    font-size: vars.rem(12)
+
+  span
+    color: #aaa
+    font-style: italic
 
 .pagination
   text-align: center
