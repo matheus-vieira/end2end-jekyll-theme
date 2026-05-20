@@ -2,7 +2,7 @@
 permalink: /blog/:year/:title/
 markdown: kramdown
 highlighter: rouge
-plugins: [jekyll-paginate-v2]
+plugins: [jekyll-paginate-v2, jekyll-seo-tag]
 
 pagination:
   enabled: true
@@ -19,10 +19,18 @@ sass:
 
 # SEO settings
 title: end2end
+tagline: Clean Jekyll theme
 description: "A free Jekyll theme for download"
 keywords: "Jekyll, theme, free, download, SEO, blog, web"
 url: http://nandomoreira.me
 baseurl: "/end2end"
+twitter:
+  username: nandomoreira_
+social:
+  name: Fernando Moreira
+  links:
+    - http://nandomoreira.me
+    - https://github.com/nandomoreirame
 
 google_analytics: UA-52446115-1
 repo: http://github.com/nandomoreirame/end2end
