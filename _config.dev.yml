@@ -1,4 +1,8 @@
 host: 0.0.0.0
 livereload: true
-force_polling: true
+# force_polling increases CPU usage and can make laptops warm.
+# Enable only when the filesystem doesn't emit change events (WSL2, Docker
+# mounts, NFS/SMB, or some remote/editor setups). To enable temporarily,
+# run: `jekyll serve --force_polling`
+# force_polling: true
 incremental: true
