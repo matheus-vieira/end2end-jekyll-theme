@@ -6,3 +6,5 @@ livereload: true
 # run: `jekyll serve --force_polling`
 # force_polling: true
 incremental: true
+url: "http://localhost:4000"
+baseurl: ""

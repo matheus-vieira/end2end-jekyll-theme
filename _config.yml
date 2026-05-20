@@ -22,34 +22,38 @@ title: end2end
 tagline: Clean Jekyll theme
 description: "A free Jekyll theme for download"
 keywords: "Jekyll, theme, free, download, SEO, blog, web"
-url: https://nandomoreirame.github.io
-baseurl: "/end2end"
+url: https://matheus-vieira.github.io
+baseurl: "/end2end-jekyll-theme"
+repo: https://github.com/matheus-vieira/end2end-jekyll-theme
 twitter:
-  username: nandomoreira_
+  username: macostavieira
 social:
-  name: Fernando Moreira
+  name: Matheus Costa Vieira
   links:
-    - https://nandomoreira.me
-    - https://github.com/nandomoreirame
+    - https://matheus-vieira.github.io
+    - https://github.com/matheus-vieira
 
-google_analytics: UA-52446115-1 # Universal Analytics (descontinuado jul/2024)
+google_analytics: UA-174941014-1
+google_analytics_container: GTM-TWNMZ5Q # Universal Analytics (descontinuado jul/2024)
 # google_analytics: G-XXXXXXXXXX  # Change to GA4 Measurement ID when available
-repo: https://github.com/nandomoreirame/end2end
-disqus_shortname: "nandothemes"
-disqus_site_shortname: "nandothemes"
+disqus_shortname: "matheuscostavieira"
+disqus_site_shortname: "matheuscostavieira"
 
 # Author settings
 author:
-  name: Fernando Moreira
-  job: Frontend Engineer
-  bio: "Enthusiast performance, responsive design and usability, always looking for the best project and good coffee."
+  name: Matheus Costa Vieira
+  job: Software Engineer
+  bio: "17+ years turning curiosity into enterprise-scale solutions. From PHP beginnings to architecting global microservices. Founder of End2End Systems, where I help businesses transform digitally while working from my dream home in Fazenda Rio Grande."
   thumb: /images/author.jpg
-  email: nandomoreira.me@gmail.com
-  url: https://nandomoreira.me/
-  github: https://github.com/nandomoreirame
-  twitter: https://twitter.com/umdevux
-  facebook: https://facebook.com/umdevux
-  linkedin: https://linkedin.com/in/nandomoreirame
+  email: matheus.costa.vieira@gmail.com
+  url: https://matheus-vieira.github.io/
+  github: https://github.com/matheus-vieira
+  twitter: https://twitter.com/macostavieira
+  facebook: https://facebook.com/macovieira
+  linkedin: https://linkedin.com/in/macostavieira-dotnet
+  whatsapp: https://api.whatsapp.com/send?phone=5541988024599&text=E ae!
+  phone: "5541988024599"
+  cellphone: "+55 41 9 88024599"
 
 # navbar pages
 navbar:
