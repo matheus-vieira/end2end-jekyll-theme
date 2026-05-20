@@ -26,6 +26,7 @@ end
 group :development do
   gem "jekyll-compose", "~> 0.12"
   gem "html-proofer", "~> 5.1"
+  gem "webrick", "~> 1.8"
 end
 
 group :jekyll_plugins do
