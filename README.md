@@ -58,6 +58,7 @@ Every pull request runs:
 - Jekyll production build
 - Ruby 3.2 validation
 - Ruby 3.3 validation
+- Ruby 3.4 validation
 
 ## Deploy
 
