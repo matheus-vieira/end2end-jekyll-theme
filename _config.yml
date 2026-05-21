@@ -33,9 +33,7 @@ social:
     - https://matheus-vieira.github.io
     - https://github.com/matheus-vieira
 
-google_analytics: UA-174941014-1
-google_analytics_container: GTM-TWNMZ5Q # Universal Analytics (descontinuado jul/2024)
-# google_analytics: G-XXXXXXXXXX  # Change to GA4 Measurement ID when available
+google_analytics: G-4DN8RJD25D # GA4 Measurement ID
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"
 
