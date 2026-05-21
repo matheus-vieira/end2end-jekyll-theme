@@ -2,7 +2,8 @@ name: CI
 
 on:
   pull_request:
-    branches: [ master, main ]
+    branches:
+      - main
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -13,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['3.2', '3.3', '3.4']
+        ruby-version:
+          - '3.2'
+          - '3.3'
+          # - '3.4' once Gemfile is updated it should support Ruby 3.4
 
     steps:
       - name: Checkout
