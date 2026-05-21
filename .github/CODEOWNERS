@@ -1,0 +1,16 @@
+# Default owners for the repository.
+* @matheus-vieira
+
+# Repository automation and templates.
+.github/ @matheus-vieira
+
+# Jekyll source files.
+source/ @matheus-vieira
+
+# Root configuration files.
+_config.yml @matheus-vieira
+_config.dev.yml @matheus-vieira
+Gemfile @matheus-vieira
+Gemfile.lock @matheus-vieira
+Rakefile @matheus-vieira
+README.md @matheus-vieira
