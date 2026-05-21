@@ -1,4 +1,4 @@
-# end2end Clean Jekyll theme [![Deploy Pages](https://github.com/nandomoreirame/end2end/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/nandomoreirame/end2end/actions/workflows/pages.yml)
+# end2end Clean Jekyll theme [![Deploy Pages](https://github.com/matheus-vieira/end2end-jekyll-theme/actions/workflows/pages.yml/badge.svg)](https://github.com/matheus-vieira/end2end-jekyll-theme/actions/workflows/pages.yml)
 
 
 
@@ -60,6 +60,17 @@ Every pull request runs:
 - Ruby 3.3 validation
 - Ruby 3.4 validation
 
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+
+Repository workflow:
+
+- `main` only accepts changes through pull requests.
+- `epic/*` branches only accept changes through pull requests.
+- Squash merge is the default merge strategy.
+- Releases should be created from Git tags.
+
 ## Deploy
 
 Deploy is fully handled by GitHub Actions.
@@ -70,7 +81,8 @@ Requirements:
 - Pages
 - Source = GitHub Actions
 
-Pushes to `master` or `main` trigger deployment automatically.
+Merges into `main` trigger deployment automatically.
+Direct pushes to `main` are blocked by repository rules.
 
 ## Migration notes
 
@@ -93,12 +105,9 @@ The site is now built and deployed using GitHub Actions artifacts.
 
 ---
 
-### Demo and Download
+### Preview
 
-[Demo](https://nandomoreirame.github.io/end2end/)
-[Download](https://github.com/nandomoreirame/end2end/archive/master.zip)
-
-![end2end - free Jekyll theme](/screenshot.png)
+![end2end Jekyll theme screenshot](/screenshot.png)
 
 ---
 
