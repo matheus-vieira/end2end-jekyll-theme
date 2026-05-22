@@ -9,6 +9,9 @@ pagination:
   per_page: 3
   permalink: "/page/:num/"
 
+# Site language (en-US default)
+lang: en-US
+
 comments: true
 
 source: source
@@ -33,7 +36,9 @@ social:
     - https://matheus-vieira.github.io
     - https://github.com/matheus-vieira
 
-google_analytics: G-4DN8RJD25D # GA4 Measurement ID
+# Google Analytics 4 — set your Measurement ID (G-XXXXXXXXXX)
+# Leave blank or remove to disable analytics entirely
+google_analytics: ""
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"
 

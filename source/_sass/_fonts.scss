@@ -1,16 +1,13 @@
 /*
-  End2End — single self-hosted font used for headings and body.
-  The repository contains `end2end.woff` and `end2end.ttf` in `source/fonts/`.
-  We provide multiple @font-face entries with different weights mapped to the same file
-  so the theme can use standard weights (300, 400, 700) without external fonts.
+  End2End — self-hosted font used for the icon set.
+  The repository contains `end2end.woff2` and `end2end.ttf` in `source/fonts/`.
+  We keep the source TTF for regeneration and prefer WOFF2 for the web build.
 */
 
 @font-face {
   font-family: "End2End";
   src: url("../fonts/end2end.woff2") format("woff2"),
-       url("../fonts/end2end.woff") format("woff"),
-       url("../fonts/end2end.ttf") format("truetype"),
-       url("../fonts/end2end.svg#end2end") format("svg");
+       url("../fonts/end2end.ttf") format("truetype");
   font-weight: 300 400 700;
   font-style: normal;
   font-display: swap;
