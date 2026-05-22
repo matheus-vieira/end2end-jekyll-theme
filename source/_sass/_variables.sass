@@ -38,8 +38,14 @@ $all-buttons: "button, input[type='button'], input[type='reset'], input[type='su
 $all-text-inputs: "input[type='color'], input[type='date'], input[type='datetime'], input[type='datetime-local'], input[type='email'], input[type='month'], input[type='number'], input[type='password'], input[type='search'], input[type='tel'], input[type='text'], input[type='time'], input[type='url'], input[type='week'], input:not([type]), textarea"
 
 // Typography
-$base-font-family: "Montserrat", $helvetica
-$heading-font-family: $base-font-family
+// Use a performant system stack for body text and the `End2End` font for headings.
+$base-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+$heading-font-family: "End2End", $base-font-family
+
+// Font tuning
+$font-tracking-base: 0.0125em
+$font-tracking-heading: -0.01em
+$font-synthesis: none
 
 // Font Sizes
 $unit-font-size: 16px
