@@ -36,9 +36,13 @@ social:
     - https://matheus-vieira.github.io
     - https://github.com/matheus-vieira
 
+
 # Google Analytics 4 — set your Measurement ID (G-XXXXXXXXXX)
 # Leave blank or remove to disable analytics entirely
-google_analytics: ""
+# The current value is a valid GA4 Measurement ID,
+# Associated with a property that tracks only traffic to this site
+# Update it to your own Measurement ID to track your site's traffic in your GA4 property
+google_analytics: G-4DN8RJD25D
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"
 
