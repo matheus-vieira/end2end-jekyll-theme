@@ -13,3 +13,4 @@ All notable changes to this project are documented in this file.
 - Added README guidance for replacing or disabling the GA4 Measurement ID.
 - Updated `Gemfile` to allow Jekyll 4.4.x.
 - Added README notes recommending `bundle install` and `bundle exec`.
+- Added automatic build-time cache busting for font, CSS, and preload asset URLs.

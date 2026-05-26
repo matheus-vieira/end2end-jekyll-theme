@@ -3,8 +3,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 {% seo %}
+{% assign cache_bust_format = site.asset_cache_bust_format | default: "%Y%m%d%H%M%S" %}
+{% assign version = site.time | date: cache_bust_format %}
+{% assign version_query = "?v=" | append: version %}
 <!-- Using bundled `End2End` font from /source/fonts/; Montserrat removed -->
-<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+<!-- Load font declarations processed by Liquid so they can include cache-bust timestamps -->
+<link rel="stylesheet" href="{{ "/css/fonts.css" | prepend: site.baseurl }}{{ version_query }}">
+<!-- main stylesheet -->
+<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}{{ version_query }}">
+
+<!-- Preload critical icon font with the same cache-bust value -->
+<link rel="preload" href="{{ "/fonts/end2end.woff2" | prepend: site.baseurl }}{{ version_query }}" as="font" type="font/woff2" crossorigin>
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
 {% include google_analytics.html %}

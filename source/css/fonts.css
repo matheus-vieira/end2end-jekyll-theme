@@ -1,0 +1,18 @@
+---
+# Generated fonts stylesheet processed by Jekyll/Liquid so we can
+# inject a build-time cache-bust timestamp via `site.time`.
+---
+
+{% assign cache_bust_format = site.asset_cache_bust_format | default: "%Y%m%d%H%M%S" %}
+{% assign asset_cache_bust = site.time | date: cache_bust_format %}
+{% assign asset_cache_bust_query = "?v=" | append: asset_cache_bust %}
+
+/* Canonical @font-face for End2End icon font. */
+@font-face {
+  font-family: "End2End";
+  src: url("../fonts/end2end.woff2{{ asset_cache_bust_query }}") format("woff2"),
+       url("../fonts/end2end.ttf{{ asset_cache_bust_query }}") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

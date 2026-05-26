@@ -138,3 +138,9 @@ It is under [the MIT license](/LICENSE).
   Please remove metas `<meta name="robots" content="noindex">` and `<meta name="googlebot" content="noindex">` in `source/_layouts/default.html`
 
 Enjoy :yum:
+
+## Asset cache busting
+
+- **Automatic build-time cache-busting:** The theme injects a build-time timestamp into critical asset URLs (fonts, CSS, JS) so updated binaries are fetched after each build. The timestamp format is controlled by the `asset_cache_bust_format` setting in `_config.yml`.
+- **Where it's defined:** See `_config.yml` for the `asset_cache_bust_format` value and `source/css/fonts.css` for the canonical `@font-face` that includes the generated timestamp.
+

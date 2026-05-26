@@ -4,6 +4,10 @@ markdown: kramdown
 highlighter: rouge
 plugins: [jekyll-paginate-v2, jekyll-seo-tag]
 
+# Asset cache bust format used to render build-time timestamps for assets
+# Format follows Liquid/Jekyll `date` filter formats (Ruby strftime).
+asset_cache_bust_format: "%Y%m%d%H%M%S"
+
 pagination:
   enabled: true
   per_page: 3
