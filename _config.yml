@@ -37,8 +37,10 @@ social:
     - https://github.com/matheus-vieira
 
 
-# Google Analytics 4 — this theme uses GA4 by default
-# Replace with your Measurement ID or set to empty string to disable
+# Google Analytics 4 — this theme uses GA4 by default.
+# The bundled Measurement ID is intentional for the maintainer/demo site.
+# Replace with your personal GA4 Measurement ID to enable your property,
+# or set this value to an empty string to disable analytics entirely.
 google_analytics: G-4DN8RJD25D
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"

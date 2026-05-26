@@ -23,13 +23,32 @@ Edit `_config.yml` before deploying:
 - `baseurl` — subpath if not at root (e.g. `/end2end` or `""` for root)
 - `author` — your personal info
 
+### Analytics
+
+- The theme ships a demo GA4 Measurement ID in `_config.yml` for the maintainer/demo site.
+- To use your own analytics, replace the `google_analytics` value with your GA4 Measurement ID (format: `G-XXXXXXXXXX`).
+- To disable analytics entirely, set `google_analytics` to an empty string in `_config.yml`.
+
 ## Current stack
 
 - Ruby 3.2+
 - Bundler 4.0+
-- Jekyll 4.3
+- Jekyll 4.4 (Gemfile updated to allow 4.4.x)
 - GitHub Pages via GitHub Actions
 - Sass modules using `@use`
+
+Note: The `Gemfile` was updated to accept Jekyll 4.4.x to match modern
+local environments. If you update your system Jekyll, run:
+
+```bash
+bundle install
+```
+
+Always run Jekyll via Bundler in this repo:
+
+```bash
+bundle exec jekyll serve --config _config.yml,_config.dev.yml
+```
 
 ## Local development
 
