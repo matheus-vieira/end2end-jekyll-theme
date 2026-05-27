@@ -1,8 +1,0 @@
-/*
-  End2End — self-hosted font used for the icon set.
-  The repository contains `end2end.woff2` and `end2end.ttf` in `source/fonts/`.
-  We keep the source TTF for regeneration and prefer WOFF2 for the web build.
-  Canonical @font-face for the theme; icons reuse this definition.
-  The actual `@font-face` block is emitted from `source/css/fonts.css`
-  so Jekyll/Liquid can render a build-time cache-bust timestamp in one place.
-*/
