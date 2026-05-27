@@ -70,6 +70,25 @@ Validate generated HTML and internal links:
 rake check_links
 ```
 
+### Cleaning build artifacts
+
+Jekyll generates several cache and output directories during local development.
+
+Over time these can cause stale assets, outdated caches, or inconsistent build results — especially after switching branches or pulling changes that affect CSS, fonts, or layouts.
+
+If you notice unexpected output or slower builds, remove the generated artifacts before starting the server:
+
+```bash
+rm -rf _site .jekyll-cache .sass-cache .jekyll-metadata
+```
+
+- `_site` — the full generated site output; always rebuilt from source
+- `.jekyll-cache` — internal Jekyll cache for incremental builds; can become stale after structural changes
+- `.sass-cache` — Sass compilation cache; can cause outdated styles if asset files were renamed or moved
+- `.jekyll-metadata` — tracks file modification times for incremental builds; removing it forces a clean full rebuild
+
+These are all generated files. Removing them is safe and does not affect your source files.
+
 ## Pull request validation
 
 Every pull request runs:
