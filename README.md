@@ -43,7 +43,7 @@ The theme build process is extensible through **Repository Secrets**, allowing y
 
 ---
 
-#### Adendum: Google Analytics
+#### Addendum: Google Analytics
 
 Analytics is **disabled by default**. It is only emitted when `JEKYLL_ENV=production` and a valid `GA_MEASUREMENT_ID` is provided via secrets.
 
