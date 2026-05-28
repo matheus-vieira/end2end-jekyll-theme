@@ -30,16 +30,16 @@ The theme build process is extensible through **Repository Secrets**, allowing y
 #### How it works
 
 1. Define secrets in **Settings → Secrets and variables → Actions → Repository secrets**.
-2. The GitHub Actions workflow captures these secrets into a `CONFIG_VARS` block.
-3. A temporary file `_config.secrets.yml` (ignored by git) is generated during build and passed to Jekyll:
-   `jekyll build --config _config.yml,_config.secrets.yml`.
+2. The GitHub Actions workflow maps those values to environment variables and runs `bundle exec rake config:secrets`.
+3. The rake task generates a temporary `_config.secrets.yml` file (ignored by git), validates it, and passes it to Jekyll:
+  `bundle exec jekyll build --config _config.yml,_config.assets.yml,_config.secrets.yml`.
 
 #### Available Secrets
 
 | Secret | Target Jekyll Key | Requirement | Description |
 | :--- | :--- | :--- | :--- |
-| `GA_MEASUREMENT_ID` | `ga_measurement_id` | Optional | Google Analytics 4 ID (e.g., `G-XXXX`). |
-| `GA_OPTIONS` | `ga_options` | Optional | YAML mapping for `gtag` configuration. |
+| `GA_MEASUREMENT_ID` | `ga_measurement_id` | Optional | Google Analytics 4 ID (for example, `G-XXXX`). Invalid values are skipped with a warning. |
+| `GA_OPTIONS` | `ga_options` | Optional | YAML mapping for `gtag` configuration. Invalid YAML is skipped with a warning. |
 
 ---
 
@@ -48,7 +48,7 @@ The theme build process is extensible through **Repository Secrets**, allowing y
 Analytics is **disabled by default**. It is only emitted when `JEKYLL_ENV=production` and a valid `GA_MEASUREMENT_ID` is provided via secrets.
 
 ##### `GA_OPTIONS` Format
-To ensure correct nesting, the value of the `GA_OPTIONS` secret must be stored as a **YAML mapping with a 2-space indentation** on every line.
+To ensure correct nesting, the value of the `GA_OPTIONS` secret must be stored as a **YAML mapping with a 2-space indentation** on every line. The rake task validates this format before writing `_config.secrets.yml`.
 
 **Correct Secret Value:**
 ```text
@@ -58,23 +58,47 @@ To ensure correct nesting, the value of the `GA_OPTIONS` secret must be stored a
 
 #### Adding New Secrets
 
-The build is prepared for new configs. To add one (e.g. MY_API_KEY):
+The build is prepared for new configs. To add one (for example, `MY_API_KEY`):
 
 1. Create the secret in GitHub.
-2. Add it to `.github/workflows/pages.yml` inside the `CONFIG_VARS` env block:
+2. Add it to `.github/workflows/pages.yml` as an environment variable for the `config:secrets` step.
   ```yaml
-  CONFIG_VARS: |
-    ga_measurement_id: "${{ secrets.GA_MEASUREMENT_ID }}"
-    my_new_key: "${{ secrets.MY_API_KEY }}"
+  env:
+    MY_API_KEY: ${{ secrets.MY_API_KEY }}
   ```
-3. Access it in templates via `{{ site.my_new_key }}`.
+3. Extend `Rakefile` so `bundle exec rake config:secrets` validates and writes the new value.
+4. Access it in templates via `{{ site.my_new_key }}`.
 
 
 #### Local Testing
 
-Edit `_config.dev.yml` to include any required keys (e.g. `ga_measurement_id: "G-TEST"`) and execute using [Local Development](#local-development) instructions.
+For local testing, you can run the same tasks used by GitHub Pages:
 
-Or create a manual `_config.secrets.yml` and execute using [Local Development](#local-development) instructions appending `, config.secrets.yml` to the `--config` flag:
+```bash
+bundle exec rake assets:hashes
+bundle exec rake config:secrets
+bundle exec jekyll build --config _config.yml,_config.assets.yml,_config.secrets.yml
+```
+
+If you want to start a local server, use the Rake helper so the generated Sass partial exists before Jekyll compiles:
+
+```bash
+bundle exec rake serve
+```
+
+If you skip the asset generation step, `bundle exec jekyll serve` will fail with a Sass import error because `source/_sass/end2end/_fonts.sass` is generated, not committed.
+
+If you want to test analytics locally, set environment variables before running `bundle exec rake config:secrets`:
+
+```bash
+GA_MEASUREMENT_ID=G-TEST \
+GA_OPTIONS=$'anonymize_ip: true\ncookie_expires: 0' \
+bundle exec rake config:secrets
+```
+
+You can still edit `_config.dev.yml` for regular local settings and use [Local Development](#local-development) instructions as usual.
+
+If you need to inspect the generated secrets file manually, append `_config.secrets.yml` to the `--config` flag:
 
 ```bash
 JEKYLL_ENV=production bundle exec jekyll serve --config _config.yml,_config.dev.yml,_config.secrets.yml
@@ -103,16 +127,23 @@ bundle exec jekyll serve --config _config.yml,_config.dev.yml
 
 ## Local development
 
-Install dependencies:
+Install dependencies, generate the asset hashes, and start the local server with one command:
+
+```bash
+bundle exec rake serve
+```
+
+If you prefer to run Jekyll directly, generate the assets first so the Sass partial exists:
+
+```bash
+bundle exec rake assets:hashes
+bundle exec jekyll serve --config _config.yml,_config.dev.yml
+```
+
+If you only need to install dependencies, run:
 
 ```bash
 bundle install
-```
-
-Start local server:
-
-```bash
-bundle exec jekyll serve --config _config.yml,_config.dev.yml
 ```
 
 Validate generated HTML and internal links:
@@ -213,18 +244,14 @@ Enjoy :yum:
 
 We use content-based hashes (SHA-256) for cache busting, ensuring that browsers only download new assets when they actually change.
 
+The `bundle exec rake assets:hashes` task generates both `_config.assets.yml` and the Sass partial used for the bundled icon font. The generated Sass lives at `source/_sass/end2end/_fonts.sass`, so Jekyll compiles it without Liquid inside the stylesheet.
+
 To test this locally and generate the asset hash configuration, run:
 
-> `rm -f _config.assets.yml` deletes the current config to ensure a clean slate
-> Then, for each asset, compute its SHA-256 hash and write it to _config.assets.yml in the required format.
-> This file is ignored by git and can be safely regenerated as needed
+> `bundle exec rake assets:hashes` regenerates `_config.assets.yml` and the generated font partial.
+> The task validates that every source file exists before hashing it.
+> The `main.css` hash also depends on the generated Sass partial, so the cache bust changes whenever the font definition changes.
 
 ```bash
-rm -f _config.assets.yml &&
-{
-  printf 'asset_hash_fonts_css: "%s"\n' "$(sha256sum source/css/fonts.css | awk '{print $1}')" > _config.assets.yml
-  printf 'asset_hash_end2end_woff2: "%s"\n' "$(sha256sum source/fonts/end2end.woff2 | awk '{print $1}')" >> _config.assets.yml
-  printf 'asset_hash_end2end_ttf: "%s"\n' "$(sha256sum source/fonts/end2end.ttf | awk '{print $1}')" >> _config.assets.yml
-  printf 'asset_hash_main_css: "%s"\n' "$(sha256sum source/css/main.sass | awk '{print $1}')" >> _config.assets.yml
-} > _config.assets.yml
+bundle exec rake assets:hashes
 ```

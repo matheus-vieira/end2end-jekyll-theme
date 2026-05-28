@@ -32,34 +32,23 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Generate asset hashes
+        # Rebuild the generated Sass partial and cache-busting hashes before Jekyll runs.
+        run: bundle exec rake assets:hashes
+
+      - name: Generate secrets config
+        env:
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+          GA_OPTIONS: ${{ secrets.GA_OPTIONS }}
+        # Validate the optional secrets one by one so invalid values are skipped with warnings.
+        run: bundle exec rake config:secrets
+
       - name: Build with Jekyll
         env:
           JEKYLL_ENV: production
           TZ: America/Sao_Paulo
-          CONFIG_VARS: |
-            ga_measurement_id: "${{ secrets.GA_MEASUREMENT_ID }}"
-            ga_options:
-            ${{ secrets.GA_OPTIONS }}
         run: |
-          main_css_source="source/css/main.scss" # adjust if the real source file is different
-          fonts_css_source="source/css/fonts.css"
-          end2end_woff2_source="source/fonts/end2end.woff2"
-          end2end_ttf_source="source/fonts/end2end.ttf"
-
-          main_css_hash="$(sha256sum "$main_css_source" | awk '{print $1}')"
-          fonts_css_hash="$(sha256sum "$fonts_css_source" | awk '{print $1}')"
-          end2end_woff2_hash="$(sha256sum "$end2end_woff2_source" | awk '{print $1}')"
-          end2end_ttf_hash="$(sha256sum "$end2end_ttf_source" | awk '{print $1}')"
-
-          {
-            printf '%s\n' "${CONFIG_VARS}"
-            printf 'asset_hash_main_css: "%s"\n' "${main_css_hash}"
-            printf 'asset_hash_fonts_css: "%s"\n' "${fonts_css_hash}"
-            printf 'asset_hash_end2end_woff2: "%s"\n' "${end2end_woff2_hash}"
-            printf 'asset_hash_end2end_ttf: "%s"\n' "${end2end_ttf_hash}"
-          } > _config.secrets.yml
-
-          bundle exec jekyll build --config _config.yml,_config.secrets.yml
+          bundle exec jekyll build --config _config.yml,_config.assets.yml,_config.secrets.yml
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
