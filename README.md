@@ -23,51 +23,62 @@ Edit `_config.yml` before deploying:
 - `baseurl` — subpath if not at root (e.g. `/end2end` or `""` for root)
 - `author` — your personal info
 
-### Analytics
+### Environment Configuration (GitHub Secrets)
 
-The theme ships with analytics **disabled by default**.
+The theme build process is extensible through **Repository Secrets**, allowing you to inject sensitive or environment-specific configurations without committing them to the code.
 
-How it works
-- Analytics is emitted only when the site is built with `JEKYLL_ENV=production` and
-  `site.ga_measurement_id` is present in the site configuration (see below).
-- `site.ga_options` is optional and defaults to an empty object `{}` when absent.
+#### How it works
 
-Enable locally
-- Change local `_config.dev.yml` to include your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) and optional GA settings:
+1. Define secrets in **Settings → Secrets and variables → Actions → Repository secrets**.
+2. The GitHub Actions workflow captures these secrets into a `CONFIG_VARS` block.
+3. A temporary file `_config.secrets.yml` (ignored by git) is generated during build and passed to Jekyll:
+   `jekyll build --config _config.yml,_config.secrets.yml`.
 
-```yaml
-ga_measurement_id: "G-XXXXXXXXXX"
-ga_options:
+#### Available Secrets
+
+| Secret | Target Jekyll Key | Requirement | Description |
+| :--- | :--- | :--- | :--- |
+| `GA_MEASUREMENT_ID` | `ga_measurement_id` | Optional | Google Analytics 4 ID (e.g., `G-XXXX`). |
+| `GA_OPTIONS` | `ga_options` | Optional | YAML mapping for `gtag` configuration. |
+
+---
+
+#### Adendum: Google Analytics
+
+Analytics is **disabled by default**. It is only emitted when `JEKYLL_ENV=production` and a valid `GA_MEASUREMENT_ID` is provided via secrets.
+
+##### `GA_OPTIONS` Format
+To ensure correct nesting, the value of the `GA_OPTIONS` secret must be stored as a **YAML mapping with a 2-space indentation** on every line.
+
+**Correct Secret Value:**
+```text
   anonymize_ip: true
   cookie_expires: 0
 ```
 
-And run locally with:
+#### Adding New Secrets
+
+The build is prepared for new configs. To add one (e.g. MY_API_KEY):
+
+1. Create the secret in GitHub.
+2. Add it to `.github/workflows/pages.yml` inside the `CONFIG_VARS` env block:
+  ```yaml
+  CONFIG_VARS: |
+    ga_measurement_id: "${{ secrets.GA_MEASUREMENT_ID }}"
+    my_new_key: "${{ secrets.MY_API_KEY }}"
+  ```
+3. Access it in templates via `{{ site.my_new_key }}`.
+
+
+#### Local Testing
+
+Edit `_config.dev.yml` to include any required keys (e.g. `ga_measurement_id: "G-TEST"`) and execute using [Local Development](#local-development) instructions.
+
+Or create a manual `_config.secrets.yml` and execute using [Local Development](#local-development) instructions appending `, config.secrets.yml` to the `--config` flag:
 
 ```bash
-JEKYLL_ENV=production bundle exec jekyll serve --config _config.yml,_config.dev.yml
+JEKYLL_ENV=production bundle exec jekyll serve --config _config.yml,_config.dev.yml,_config.secrets.yml
 ```
-
-CI / GitHub Pages
-- The repository's Pages workflow dynamically generates `_config.env.vars.yml` from repository-level variables and runs the build with `JEKYLL_ENV=production`. This keeps secrets out of source control while allowing Pages builds to include analytics.
-- Add the variables in your repository settings (Settings → Secrets and variables → Actions) using the names listed in the workflow:
-
-- `GA_MEASUREMENT_ID`: your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`)
-- `GA_OPTIONS` (optional): a JSON object string to pass additional options (e.g. `{"anonymize_ip": true, "cookie_expires": 0}`)
-
-The workflow writes those values as YAML keys in `_config.env.vars.yml`:
-
-```yaml
-ga_measurement_id: "G-XXXXXXXXXX"
-ga_options:
-  anonymize_ip: true
-  cookie_expires: 0
-```
-
-Note: GitHub Pages' hosted build environment does not allow arbitrary plugins, which is why the workflow creates `_config.env.vars.yml` and passes it to Jekyll at build time.
-
-Disable analytics
-- Do not provide `ga_measurement_id` in `_config.dev.yml`, or do not pass `_config.env.vars.yml` to the build. Building without `JEKYLL_ENV=production` also prevents the analytics include from being emitted.
 
 ## Current stack
 

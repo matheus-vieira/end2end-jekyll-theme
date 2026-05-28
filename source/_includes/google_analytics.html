@@ -4,8 +4,8 @@ Emits Google Analytics only for production builds.
 Requirements and behavior:
 - Build must run with `JEKYLL_ENV=production`.
 - Configure `ga_measurement_id` and (optionally) `ga_options` in a
-  secondary config file (e.g. `_config.env.vars.yml`) and pass it to
-  the build via `--config _config.yml,_config.env.vars.yml` from your
+  secondary config file (e.g. `_config.secrets.yml`) and pass it to
+  the build via `--config _config.yml,_config.secrets.yml` from your
   CI workflow. Example workflow step is documented in the README.
 
 This include reads `site.ga_measurement_id` and `site.ga_options`, sets a
