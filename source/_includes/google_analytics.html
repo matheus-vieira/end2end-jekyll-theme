@@ -1,20 +1,56 @@
 {%- comment -%}
-  This snippet is intentionally gated to production builds and requires
-  `site.google_analytics` to be set. The theme ships a demo Measurement ID
-  in `_config.yml` for the maintainer/demo site; users should replace it with
-  their own Measurement ID or set it to an empty string to disable analytics.
+Emits Google Analytics only for production builds.
+
+Requirements and behavior:
+- Build must run with `JEKYLL_ENV=production`.
+- Configure `ga_measurement_id` and (optionally) `ga_options` in a
+  secondary config file (e.g. `_config.env.vars.yml`) and pass it to
+  the build via `--config _config.yml,_config.env.vars.yml` from your
+  CI workflow. Example workflow step is documented in the README.
+
+This include reads `site.ga_measurement_id` and `site.ga_options`, sets a
+safe default for the options (`{}`), and escapes the JSON so it can be
+safely embedded inside a single-quoted JS string and parsed with
+`JSON.parse(...)` in the generated script.
 {%- endcomment -%}
 
-{% if jekyll.environment == "production" and site.google_analytics %}
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+{% if jekyll.environment == "production" %}
+  {%- assign ga_id = site.ga_measurement_id -%}
 
-  gtag('config', '{{ site.google_analytics }}', {
-    {% if site.analytics.anonymize_ip %}anonymize_ip: true,{% endif %}
-  });
-</script>
+  {%- if ga_id and ga_id != "" -%}
+    {%- comment -%}
+    Prepare JSON options: use site.ga_options when provided, otherwise
+    default to an empty object literal. Then escape for safe embedding.
+    {%- endcomment -%}
+    {%- if site.ga_options and site.ga_options != "" -%}
+      {%- comment -%}
+      Accept either a YAML mapping (preferred) or a JSON string in
+      `site.ga_options`. If the value looks like JSON (contains `{`),
+      assume it's already JSON; otherwise, jsonify the mapping.
+      {%- endcomment -%}
+      {%- if site.ga_options contains '{' -%}
+        {%- assign ga_options = site.ga_options -%}
+      {%- else -%}
+        {%- assign ga_options = site.ga_options | jsonify -%}
+      {%- endif -%}
+    {%- else -%}
+      {%- assign ga_options = "{}" -%}
+    {%- endif -%}
+
+    {%- assign ga_options = ga_options
+      | replace: '\\', '\\\\'
+      | replace: "'", "\\'"
+      | replace: '\n', '\\n'
+      | replace: '\r', '\\r' -%}
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', '{{ ga_id }}', JSON.parse('{{ ga_options }}'));
+    </script>
+  {%- endif -%}
 {% endif %}

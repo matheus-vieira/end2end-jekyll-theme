@@ -3,7 +3,7 @@
 
 
 * [x] Clean layout
-* [x] Resposive layout
+* [x] Responsive layout
 * [x] Preprocessor SASS
 * [x] CSS minified
 * [x] Pagination
@@ -25,9 +25,49 @@ Edit `_config.yml` before deploying:
 
 ### Analytics
 
-- The theme ships a demo GA4 Measurement ID in `_config.yml` for the maintainer/demo site.
-- To use your own analytics, replace the `google_analytics` value with your GA4 Measurement ID (format: `G-XXXXXXXXXX`).
-- To disable analytics entirely, set `google_analytics` to an empty string in `_config.yml`.
+The theme ships with analytics **disabled by default**.
+
+How it works
+- Analytics is emitted only when the site is built with `JEKYLL_ENV=production` and
+  `site.ga_measurement_id` is present in the site configuration (see below).
+- `site.ga_options` is optional and defaults to an empty object `{}` when absent.
+
+Enable locally
+- Change local `_config.dev.yml` to include your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`) and optional GA settings:
+
+```yaml
+ga_measurement_id: "G-XXXXXXXXXX"
+ga_options:
+  anonymize_ip: true
+  cookie_expires: 0
+```
+
+And run locally with:
+
+```bash
+JEKYLL_ENV=production bundle exec jekyll serve --config _config.yml,_config.dev.yml
+```
+
+CI / GitHub Pages
+- The repository's Pages workflow dynamically generates `_config.env.vars.yml` from repository-level variables and runs the build with `JEKYLL_ENV=production`. This keeps secrets out of source control while allowing Pages builds to include analytics.
+- Add the variables in your repository settings (Settings → Secrets and variables → Actions) using the names listed in the workflow:
+
+- `GA_MEASUREMENT_ID`: your GA4 Measurement ID (e.g. `G-XXXXXXXXXX`)
+- `GA_OPTIONS` (optional): a JSON object string to pass additional options (e.g. `{"anonymize_ip": true, "cookie_expires": 0}`)
+
+The workflow writes those values as YAML keys in `_config.env.vars.yml`:
+
+```yaml
+ga_measurement_id: "G-XXXXXXXXXX"
+ga_options:
+  anonymize_ip: true
+  cookie_expires: 0
+```
+
+Note: GitHub Pages' hosted build environment does not allow arbitrary plugins, which is why the workflow creates `_config.env.vars.yml` and passes it to Jekyll at build time.
+
+Disable analytics
+- Do not provide `ga_measurement_id` in `_config.dev.yml`, or do not pass `_config.env.vars.yml` to the build. Building without `JEKYLL_ENV=production` also prevents the analytics include from being emitted.
 
 ## Current stack
 
@@ -154,7 +194,7 @@ The site is now built and deployed using GitHub Actions artifacts.
 It is under [the MIT license](/LICENSE).
 
 > :warning:
-  Please remove metas `<meta name="robots" content="noindex">` and `<meta name="googlebot" content="noindex">` in `source/_layouts/default.html`
+  Please remove meta tags `<meta name="robots" content="noindex">` and `<meta name="googlebot" content="noindex">` in `source/_layouts/default.html`
 
 Enjoy :yum:
 

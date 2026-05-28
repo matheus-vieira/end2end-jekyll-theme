@@ -8,3 +8,8 @@ livereload: true
 incremental: true
 url: "http://localhost:4000"
 baseurl: ""
+
+# Google Analytics configuration (optional)
+ga_measurement_id: ""
+# Example GA options:
+ga_options: "" # {"anonymize_ip": true, "cookie_expires": 0}
