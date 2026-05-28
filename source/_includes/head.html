@@ -1,19 +1,35 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 {% seo %}
-{% assign cache_bust_format = site.asset_cache_bust_format | default: "%Y%m%d%H%M%S" %}
-{% assign version = site.time | date: cache_bust_format %}
-{% assign version_query = "?v=" | append: version %}
-<!-- Using bundled `End2End` font from /source/fonts/; Montserrat removed -->
-<!-- Load font declarations processed by Liquid so they can include cache-bust timestamps -->
-<link rel="stylesheet" href="{{ "/css/fonts.css" | prepend: site.baseurl }}{{ version_query }}">
-<!-- main stylesheet -->
-<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}{{ version_query }}">
 
-<!-- Preload critical icon font with the same cache-bust value -->
-<link rel="preload" href="{{ "/fonts/end2end.woff2" | prepend: site.baseurl }}{{ version_query }}" as="font" type="font/woff2" crossorigin>
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+{% assign fonts_css_hash = site.asset_hash_fonts_css | default: "" %}
+{% if fonts_css_hash != "" %}
+  {% assign fonts_css_version = "?v=" | append: fonts_css_hash %}
+{% else %}
+  {% assign fonts_css_version = "" %}
+{% endif %}
+
+{% assign main_css_hash = site.asset_hash_main_css | default: "" %}
+{% if main_css_hash != "" %}
+  {% assign main_css_version = "?v=" | append: main_css_hash %}
+{% else %}
+  {% assign main_css_version = "" %}
+{% endif %}
+
+{% assign end2end_woff2_hash = site.asset_hash_end2end_woff2 | default: "" %}
+{% if end2end_woff2_hash != "" %}
+  {% assign end2end_woff2_version = "?v=" | append: end2end_woff2_hash %}
+{% else %}
+  {% assign end2end_woff2_version = "" %}
+{% endif %}
 
 {% include google_analytics.html %}
+
+<!-- Using bundled `End2End` font from /source/fonts/ -->
+<link rel="stylesheet" href="{{ "/css/fonts.css" | prepend: site.baseurl }}{{ fonts_css_version }}">
+
+<!-- Main stylesheet -->
+<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}{{ main_css_version }}">
+
+<!-- Preload critical icon font with content-based hash -->
+<link rel="preload" href="{{ "/fonts/end2end.woff2" | prepend: site.baseurl }}{{ end2end_woff2_version }}" as="font" type="font/woff2" crossorigin>
+
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />

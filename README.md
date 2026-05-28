@@ -209,8 +209,22 @@ It is under [the MIT license](/LICENSE).
 
 Enjoy :yum:
 
-## Asset cache busting
+#### Asset cache busting
 
-- **Automatic build-time cache-busting:** The theme injects a build-time timestamp into critical asset URLs (fonts, CSS, JS) so updated binaries are fetched after each build. The timestamp format is controlled by the `asset_cache_bust_format` setting in `_config.yml`.
-- **Where it's defined:** See `_config.yml` for the `asset_cache_bust_format` value and `source/css/fonts.css` for the canonical `@font-face` that includes the generated timestamp.
+We use content-based hashes (SHA-256) for cache busting, ensuring that browsers only download new assets when they actually change.
 
+To test this locally and generate the asset hash configuration, run:
+
+> `rm -f _config.assets.yml` deletes the current config to ensure a clean slate
+> Then, for each asset, compute its SHA-256 hash and write it to _config.assets.yml in the required format.
+> This file is ignored by git and can be safely regenerated as needed
+
+```bash
+rm -f _config.assets.yml &&
+{
+  printf 'asset_hash_fonts_css: "%s"\n' "$(sha256sum source/css/fonts.css | awk '{print $1}')" > _config.assets.yml
+  printf 'asset_hash_end2end_woff2: "%s"\n' "$(sha256sum source/fonts/end2end.woff2 | awk '{print $1}')" >> _config.assets.yml
+  printf 'asset_hash_end2end_ttf: "%s"\n' "$(sha256sum source/fonts/end2end.ttf | awk '{print $1}')" >> _config.assets.yml
+  printf 'asset_hash_main_css: "%s"\n' "$(sha256sum source/css/main.sass | awk '{print $1}')" >> _config.assets.yml
+} > _config.assets.yml
+```

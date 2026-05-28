@@ -48,3 +48,4 @@ __pycache__/
 
 # Secret configuration (optional, not included by default)
 _config.secrets.yml
+_config.assets.yml
