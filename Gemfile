@@ -8,7 +8,10 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~>4.3.0"
+# Project tested with Jekyll 4.4.x. Bump made to allow local system
+# installations of Jekyll 4.4 while still staying compatible with GitHub
+# Pages where appropriate. After changing this, run `bundle install`.
+gem "jekyll", "~>4.4"
 gem "rake", "~>13.0"
 
 # Required to load Windows-only dependencies
