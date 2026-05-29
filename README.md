@@ -255,3 +255,16 @@ To test this locally and generate the asset hash configuration, run:
 ```bash
 bundle exec rake assets:hashes
 ```
+
+### Self-hosted fonts
+
+Implementing a robust font strategy is crucial for performance and user experience.
+
+The theme self-hosts icon fonts, which allows for better control over loading behavior and eliminates third-party dependencies.
+
+- **Font strategy:**
+  The theme self-hosts icon fonts and adds `font-display: swap;` in the generated Sass partial `source/_sass/end2end/_fonts.sass` to avoid invisible text during font loading.
+- **Preload:**
+  The primary icon font is preloaded in `source/_includes/head.html` to reduce time to first contentful paint: `<link rel="preload" as="font" type="font/woff2" crossorigin>`.
+- **Local build:**
+  Regenerate assets before serving locally: first run `bundle exec rake assets:hashes`, then `bundle exec jekyll serve --config _config.yml,_config.dev.yml`.
