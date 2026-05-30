@@ -1,22 +1,58 @@
-{% if page.comments %}
+{% if page.comments and site.comments != false %}
 <hr>
 
-<aside id="comments" class="disqus">
+{%- assign provider = site.comments.provider | default: 'giscus' -%}
+<aside id="comments" class="comments {{ provider }}">
   <h3><i class="icon icon-comments-o"></i> Comments</h3>
-  <div id="disqus_thread"></div>
+  <div id="comments-container"></div>
+
+  <template id="comments-template-giscus">{% include comments/giscus.html %}</template>
+  <template id="comments-template-disqus">{% include comments/disqus.html %}</template>
+
   <script>
-    var disqus_config = function() {
-      this.page.url = '{{ site.url }}{{ page.url }}';
-      this.page.identifier = '{{ page.id }}';
-    };
     (function() {
-      var d = document,
-      s = d.createElement('script');
-      s.src = '//{{ site.disqus_site_shortname }}.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
+      var provider = '{{ provider }}';
+      var observed = false;
+      function executeScripts(container) {
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(function(oldScript) {
+          var newScript = document.createElement('script');
+          for (var i = 0; i < oldScript.attributes.length; i++) {
+            var attr = oldScript.attributes[i];
+            newScript.setAttribute(attr.name, attr.value);
+          }
+          newScript.text = oldScript.innerHTML;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      }
+
+      function loadComments() {
+        if (observed) return;
+        observed = true;
+        var container = document.getElementById('comments-container');
+        var tpl = document.getElementById('comments-template-' + provider);
+        if (!tpl || !container) return;
+        var node = tpl.content.cloneNode(true);
+        container.appendChild(node);
+        executeScripts(container);
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries, obs) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              loadComments();
+              obs.disconnect();
+            }
+          });
+        }, { rootMargin: '200px' });
+        var el = document.getElementById('comments');
+        if (el) io.observe(el);
+      } else {
+        // Fallback: load immediately
+        loadComments();
+      }
     })();
   </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </aside>
 {% endif %}

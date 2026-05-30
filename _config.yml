@@ -43,6 +43,23 @@ social:
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"
 
+# Comments provider configuration
+comments:
+  # Options: giscus, disqus, false
+  provider: giscus
+  giscus:
+    repo: ""          # e.g. owner/repo
+    repo_id: ""
+    category: ""
+    category_id: ""
+    mapping: "pathname"
+    reactions: "1"
+    emit_metadata: "0"
+    input_position: "bottom"
+    theme: "light"
+  disqus:
+    shortname: ""
+
 # Author settings
 author:
   name: Matheus Costa Vieira
