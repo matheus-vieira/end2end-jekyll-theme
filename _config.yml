@@ -4,10 +4,17 @@ markdown: kramdown
 highlighter: rouge
 plugins: [jekyll-paginate-v2, jekyll-seo-tag]
 
+# Asset cache bust format used to render build-time timestamps for assets
+# Format follows Liquid/Jekyll `date` filter formats (Ruby strftime).
+asset_cache_bust_format: "%Y%m%d%H%M%S"
+
 pagination:
   enabled: true
   per_page: 3
   permalink: "/page/:num/"
+
+# Site language (en-US default)
+lang: en-US
 
 comments: true
 
@@ -33,9 +40,25 @@ social:
     - https://matheus-vieira.github.io
     - https://github.com/matheus-vieira
 
-google_analytics: G-4DN8RJD25D # GA4 Measurement ID
 disqus_shortname: "matheuscostavieira"
 disqus_site_shortname: "matheuscostavieira"
+
+# Comments provider configuration
+comments:
+  # Options: giscus, disqus, false
+  provider: giscus
+  giscus:
+    repo: ""          # e.g. owner/repo
+    repo_id: ""
+    category: ""
+    category_id: ""
+    mapping: "pathname"
+    reactions: "1"
+    emit_metadata: "0"
+    input_position: "bottom"
+    theme: "light"
+  disqus:
+    shortname: ""
 
 # Author settings
 author:

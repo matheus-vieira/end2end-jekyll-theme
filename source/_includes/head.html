@@ -1,14 +1,23 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 {% seo %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap">
-<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+{% if site.asset_hash_main_css != "" %}
+  {% assign main_css_version = site.asset_hash_main_css | prepend: "?v=" %}
+{% else %}
+  {% assign main_css_version = "" %}
+{% endif %}
+
+{% if site.asset_hash_end2end_woff2 != "" %}
+  {% assign end2end_woff2_version = site.asset_hash_end2end_woff2 | prepend: "?v=" %}
+{% else %}
+  {% assign end2end_woff2_version = "" %}
+{% endif %}
 
 {% include google_analytics.html %}
+
+<!-- Main stylesheet -->
+<link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}{{ main_css_version }}">
+
+<!-- Preload critical icon font with content-based hash -->
+<link rel="preload" href="{{ "/fonts/end2end.woff2" | prepend: site.baseurl }}{{ end2end_woff2_version }}" as="font" type="font/woff2" crossorigin>
+
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
