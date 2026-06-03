@@ -1,12 +1,16 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 {% seo %}
 
-{% if site.asset_hash_main_css != "" %}
+{% if site.asset_hash_main_css and site.asset_hash_main_css != "" %}
   {% assign main_css_version = site.asset_hash_main_css | prepend: "?v=" %}
 {% else %}
   {% assign main_css_version = "" %}
 {% endif %}
 
-{% if site.asset_hash_end2end_woff2 != "" %}
+{% if site.asset_hash_end2end_woff2 and site.asset_hash_end2end_woff2 != "" %}
   {% assign end2end_woff2_version = site.asset_hash_end2end_woff2 | prepend: "?v=" %}
 {% else %}
   {% assign end2end_woff2_version = "" %}

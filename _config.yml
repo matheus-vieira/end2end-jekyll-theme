@@ -16,7 +16,7 @@ pagination:
 # Site language (en-US default)
 lang: en-US
 
-comments: true
+# comments configured below
 
 source: source
 destination: _site

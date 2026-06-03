@@ -17,7 +17,10 @@ ASSET_HASH_OUTPUT = "_config.assets.yml".freeze
 FONT_PARTIAL_OUTPUT = File.join(SOURCE, "_sass", "end2end", "_fonts.sass")
 ASSET_HASH_SOURCES = {
   "asset_hash_end2end_woff2" => File.join(SOURCE, "fonts", "end2end.woff2"),
-  "asset_hash_main_css" => [File.join(SOURCE, "css", "main.sass"), FONT_PARTIAL_OUTPUT]
+  "asset_hash_main_css" => (
+    [File.join(SOURCE, "css", "main.sass"), FONT_PARTIAL_OUTPUT] +
+    Dir.glob(File.join(SOURCE, "_sass", "**", "*.{sass,scss}")).sort
+  ).uniq
 }.freeze
 SECRETS_OUTPUT = "_config.secrets.yml".freeze
 
