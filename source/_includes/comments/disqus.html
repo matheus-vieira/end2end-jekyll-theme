@@ -7,6 +7,7 @@
   (function() {
     var d = document, s = d.createElement('script');
     var shortname = '{{ site.comments.disqus.shortname | default: site.disqus_site_shortname }}';
+    if (!shortname) return;
     s.src = '//' + shortname + '.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);

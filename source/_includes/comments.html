@@ -1,7 +1,7 @@
-{% if page.comments and site.comments != false %}
+{%- assign provider = site.comments.provider -%}
+{% if page.comments and site.comments != false and provider and provider != false %}
 <hr>
 
-{%- assign provider = site.comments.provider | default: 'giscus' -%}
 <aside id="comments" class="comments {{ provider }}">
   <h3><i class="icon icon-comments-o"></i> Comments</h3>
   <div id="comments-container"></div>

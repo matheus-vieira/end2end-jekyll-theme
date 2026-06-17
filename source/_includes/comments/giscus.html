@@ -1,3 +1,8 @@
+{%- assign giscus_repo = site.comments.giscus.repo -%}
+{%- assign giscus_repo_id = site.comments.giscus.repo_id -%}
+{%- assign giscus_category = site.comments.giscus.category -%}
+{%- assign giscus_category_id = site.comments.giscus.category_id -%}
+{% if giscus_repo and giscus_repo_id and giscus_category and giscus_category_id %}
 <div id="giscus_thread"></div>
 <script>
   (function() {
@@ -7,10 +12,10 @@
     s.src = 'https://giscus.app/client.js';
     s.async = true;
     s.crossOrigin = 'anonymous';
-    s.setAttribute('data-repo', '{{ site.comments.giscus.repo }}');
-    s.setAttribute('data-repo-id', '{{ site.comments.giscus.repo_id }}');
-    s.setAttribute('data-category', '{{ site.comments.giscus.category }}');
-    s.setAttribute('data-category-id', '{{ site.comments.giscus.category_id }}');
+    s.setAttribute('data-repo', '{{ giscus_repo }}');
+    s.setAttribute('data-repo-id', '{{ giscus_repo_id }}');
+    s.setAttribute('data-category', '{{ giscus_category }}');
+    s.setAttribute('data-category-id', '{{ giscus_category_id }}');
     s.setAttribute('data-mapping', '{{ site.comments.giscus.mapping | default: "pathname" }}');
     s.setAttribute('data-reactions-enabled', '{{ site.comments.giscus.reactions | default: "1" }}');
     s.setAttribute('data-emit-metadata', '{{ site.comments.giscus.emit_metadata | default: "0" }}');
@@ -19,3 +24,4 @@
     target.appendChild(s);
   })();
 </script>
+{% endif %}
