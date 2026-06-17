@@ -5,6 +5,7 @@ module.exports = {
       headerCorrespondence: ['type', 'scope', 'subject'],
     },
   },
+  ignores: [(message) => /^Apply suggestions from code review/i.test(message.trim())],
   rules: {
     'header-max-length': [2, 'always', 50],
     'subject-empty': [2, 'never'],
