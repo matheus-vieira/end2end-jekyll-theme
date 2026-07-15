@@ -1,0 +1,7 @@
+storage_key: end2end-cookie-consent
+title: Cookies and analytics
+message: >-
+  This site uses Google Analytics to understand how it is used. Accept analytics to allow tracking cookies, or decline to keep analytics disabled.
+accept_label: Accept analytics
+decline_label: Decline
+reduced_motion_label: Motion reduced for your system preference.

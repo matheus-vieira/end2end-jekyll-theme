@@ -11,6 +11,10 @@ pagination:
 
 comments: true
 
+# Cookie consent for analytics
+cookie_consent: false
+cookie_consent_storage_key: end2end-cookie-consent
+
 source: source
 destination: _site
 sass:
