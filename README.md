@@ -43,9 +43,56 @@ The theme build process is extensible through **Repository Secrets**, allowing y
 
 ---
 
-#### Addendum: Google Analytics
+#### Addendum: Google Analytics and Cookie Consent
 
 Analytics is **disabled by default**. It is only emitted when `JEKYLL_ENV=production` and a valid `GA_MEASUREMENT_ID` is provided via secrets.
+
+##### Cookie Consent Banner
+
+The theme includes a built-in cookie consent banner that gates Google Analytics 4 loading until the user explicitly consents. This ensures compliance with privacy regulations.
+
+**Configuration:**
+
+- `cookie_consent: false` — disables the consent banner entirely (production default)
+- `cookie_consent: true` — enables the banner and gates analytics loading
+- `cookie_consent_storage_key` — localStorage key for persisting user consent (default: `end2end-cookie-consent`)
+
+**Customizing Banner Text:**
+
+Banner text can be customized via `_config.yml` or `source/_data/cookie_consent.yml`:
+
+```yaml
+# In _config.yml (overrides data file)
+cookie_consent_title: "Your custom title"
+cookie_consent_message: "Your custom message"
+cookie_consent_accept_label: "Accept"
+cookie_consent_decline_label: "Decline"
+```
+
+Or in `source/_data/cookie_consent.yml`:
+
+```yaml
+title: Cookies and analytics
+message: This site uses Google Analytics to understand usage. Accept to enable tracking.
+accept_label: Accept analytics
+decline_label: Decline
+reduced_motion_label: Motion reduced for your system preference.
+```
+
+**Behavior:**
+
+- **First visit:** Banner appears, analytics is blocked
+- **User accepts:** Consent is stored in localStorage, analytics loads
+- **User declines:** Consent is stored in localStorage, analytics stays blocked
+- **Subsequent visits:** Banner is hidden, previous choice is respected
+- **Disabled banner:** When `cookie_consent: false`, no banner is shown and analytics behaves normally (if enabled)
+
+**Accessibility:**
+
+- Full keyboard navigation support
+- Proper ARIA labels for screen readers
+- Respects `prefers-reduced-motion` for motion-sensitive users
+- Uses semantic HTML with native button elements
 
 ##### `GA_OPTIONS` Format
 To ensure correct nesting, the value of the `GA_OPTIONS` secret must be stored as a **YAML mapping with a 2-space indentation** on every line. The rake task validates this format before writing `_config.secrets.yml`.
