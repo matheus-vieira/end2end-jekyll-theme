@@ -43,14 +43,48 @@ safely embedded inside a single-quoted JS string and parsed with
       | replace: '\n', '\\n'
       | replace: '\r', '\\r' -%}
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
+    {% if site.cookie_consent == false %}
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', '{{ ga_id }}', JSON.parse('{{ ga_options }}'));
-    </script>
+        gtag('config', '{{ ga_id }}', JSON.parse('{{ ga_options }}'));
+      </script>
+    {% else %}
+      <script>
+        window.End2EndCookieConsent = window.End2EndCookieConsent || {};
+        window.End2EndCookieConsent.ga = window.End2EndCookieConsent.ga || {};
+        window.End2EndCookieConsent.ga.id = '{{ ga_id }}';
+        window.End2EndCookieConsent.ga.options = JSON.parse('{{ ga_options }}');
+        window.End2EndCookieConsent.ga.loaded = window.End2EndCookieConsent.ga.loaded || false;
+        window.End2EndCookieConsent.ga.load = function() {
+          if (window.End2EndCookieConsent.ga.loaded) {
+            return;
+          }
+
+          window.End2EndCookieConsent.ga.loaded = true;
+          window.dataLayer = window.dataLayer || [];
+
+          function gtag() { dataLayer.push(arguments); }
+          window.gtag = gtag;
+
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(window.End2EndCookieConsent.ga.id);
+          script.addEventListener('load', function() {
+            gtag('js', new Date());
+            gtag('config', window.End2EndCookieConsent.ga.id, window.End2EndCookieConsent.ga.options);
+          });
+          document.head.appendChild(script);
+        };
+
+        if (window.End2EndCookieConsent.analyticsRequested) {
+          window.End2EndCookieConsent.ga.load();
+        }
+      </script>
+    {% endif %}
   {%- endif -%}
 {% endif %}

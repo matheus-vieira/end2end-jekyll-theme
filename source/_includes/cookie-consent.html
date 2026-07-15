@@ -1,0 +1,124 @@
+{%- assign cookie_consent_enabled = site.cookie_consent -%}
+{%- assign consent_data = site.data.cookie_consent -%}
+{%- assign consent_storage_key = site.cookie_consent_storage_key | default: consent_data.storage_key | default: 'end2end-cookie-consent' -%}
+{%- assign consent_title = site.cookie_consent_title | default: consent_data.title | default: 'Cookies and analytics' -%}
+{%- assign consent_message = site.cookie_consent_message | default: consent_data.message | default: 'This site uses Google Analytics to understand how it is used. Accept analytics to allow tracking cookies, or decline to keep analytics disabled.' -%}
+{%- assign consent_accept_label = site.cookie_consent_accept_label | default: consent_data.accept_label | default: 'Accept analytics' -%}
+{%- assign consent_decline_label = site.cookie_consent_decline_label | default: consent_data.decline_label | default: 'Decline' -%}
+{%- assign consent_reduced_motion_label = site.cookie_consent_reduced_motion_label | default: consent_data.reduced_motion_label | default: 'Motion reduced for your system preference.' -%}
+
+{%- if cookie_consent_enabled != false -%}
+  {%- if include.mode == 'head' -%}
+    <script>
+      window.End2EndCookieConsent = window.End2EndCookieConsent || {};
+      window.End2EndCookieConsent.storageKey = '{{ consent_storage_key }}';
+      window.End2EndCookieConsent.acceptedValue = 'accepted';
+      window.End2EndCookieConsent.declinedValue = 'declined';
+      window.End2EndCookieConsent.enabled = true;
+      window.End2EndCookieConsent.analyticsRequested = window.End2EndCookieConsent.analyticsRequested || false;
+
+      window.End2EndCookieConsent.read = function() {
+        try {
+          return window.localStorage.getItem(window.End2EndCookieConsent.storageKey);
+        } catch (error) {
+          return null;
+        }
+      };
+
+      window.End2EndCookieConsent.write = function(value) {
+        try {
+          window.localStorage.setItem(window.End2EndCookieConsent.storageKey, value);
+        } catch (error) {
+          return false;
+        }
+
+        return true;
+      };
+
+      window.End2EndCookieConsent.getState = function() {
+        return window.End2EndCookieConsent.read();
+      };
+
+      window.End2EndCookieConsent.hideBanner = function() {
+        var banner = document.getElementById('cookie-consent');
+
+        if (banner) {
+          banner.setAttribute('hidden', 'hidden');
+        }
+      };
+
+      window.End2EndCookieConsent.requestAnalyticsLoad = function() {
+        window.End2EndCookieConsent.analyticsRequested = true;
+
+        if (window.End2EndCookieConsent.ga && typeof window.End2EndCookieConsent.ga.load === 'function') {
+          window.End2EndCookieConsent.ga.load();
+        }
+      };
+
+      window.End2EndCookieConsent.setState = function(value) {
+        window.End2EndCookieConsent.write(value);
+        window.End2EndCookieConsent.hideBanner();
+
+        if (value === window.End2EndCookieConsent.acceptedValue) {
+          window.End2EndCookieConsent.requestAnalyticsLoad();
+        }
+      };
+
+      var currentState = window.End2EndCookieConsent.getState();
+
+      if (currentState === window.End2EndCookieConsent.acceptedValue) {
+        window.End2EndCookieConsent.requestAnalyticsLoad();
+      }
+    </script>
+  {%- elsif include.mode == 'banner' -%}
+    <aside id="cookie-consent" class="cookie-consent" aria-labelledby="cookie-consent-title">
+      <div class="cookie-consent__panel">
+        <div class="cookie-consent__copy">
+          <h2 id="cookie-consent-title">{{ consent_title }}</h2>
+          <p>{{ consent_message }}</p>
+        </div>
+        <div class="cookie-consent__actions" role="group" aria-label="Cookie consent actions">
+          <button type="button" class="button cookie-consent__button cookie-consent__button--accept" data-cookie-consent-action="accept">{{ consent_accept_label }}</button>
+          <button type="button" class="button button-ghost cookie-consent__button cookie-consent__button--decline" data-cookie-consent-action="decline">{{ consent_decline_label }}</button>
+        </div>
+        <p class="cookie-consent__status" hidden>{{ consent_reduced_motion_label }}</p>
+      </div>
+    </aside>
+    <script>
+      (function() {
+        var banner = document.getElementById('cookie-consent');
+
+        if (!banner || !window.End2EndCookieConsent) {
+          return;
+        }
+
+        var state = window.End2EndCookieConsent.getState();
+
+        if (state === window.End2EndCookieConsent.acceptedValue || state === window.End2EndCookieConsent.declinedValue) {
+          banner.setAttribute('hidden', 'hidden');
+          return;
+        }
+
+        banner.removeAttribute('hidden');
+
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var status = banner.querySelector('.cookie-consent__status');
+
+        if (status && reducedMotion && reducedMotion.matches) {
+          status.removeAttribute('hidden');
+        }
+
+        banner.addEventListener('click', function(event) {
+          var button = event.target.closest('[data-cookie-consent-action]');
+
+          if (!button) {
+            return;
+          }
+
+          event.preventDefault();
+          window.End2EndCookieConsent.setState(button.getAttribute('data-cookie-consent-action') === 'accept' ? window.End2EndCookieConsent.acceptedValue : window.End2EndCookieConsent.declinedValue);
+        });
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}

@@ -13,3 +13,4 @@ baseurl: ""
 ga_measurement_id: ""
 # Example GA options:
 ga_options: "" # {"anonymize_ip": true, "cookie_expires": 0}
+cookie_consent: true
